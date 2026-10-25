@@ -711,3 +711,7 @@
   .doc { border: 0; box-shadow: none; padding: 0; }
   .doc-body { color: #000; }
 }
+
+/* GitHub Pages 未配置测试站时隐藏入口 */
+html[data-static-pages] [data-test-site] { display: none !important; }
+

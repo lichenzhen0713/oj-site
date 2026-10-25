@@ -1077,3 +1077,7 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 24px); }
 @media (max-width: 600px) {
   .docs-teaser { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* GitHub Pages 未配置测试站时隐藏入口 */
+html[data-static-pages] [data-test-site] { display: none !important; }
+

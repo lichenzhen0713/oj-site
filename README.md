@@ -52,7 +52,7 @@ window.LCZOJ_TEST_SITE = '';
   window.LCZOJ_TEST_SITE = 'https://oj.example.com';
   ```
 
-> GitHub Pages 只能托管静态页面，不能运行 LCZOJ 的 Node.js 判题服务。当前 Pages 上没有 OJ 实例，正式启用测试站前请把真实 OJ 地址写入 `js/site-config.js`。
+> GitHub Pages 只能托管静态页面，不能运行 LCZOJ 的 Node.js 判题服务。当前 Pages 上没有 OJ 实例，未配置真实地址时页面会在 `*.github.io` 上自动隐藏「测试站」入口，避免死链；绑定自定义域名并部署 OJ 后，把地址写入 `js/site-config.js` 即可恢复。
 
 ## 文档中心
 

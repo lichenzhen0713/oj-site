@@ -10,3 +10,14 @@
          window.LCZOJ_TEST_SITE = 'https://test.example.com';
    ========================================================================== */
 window.LCZOJ_TEST_SITE = '';
+
+/* GitHub Pages 只能托管静态页面，不能运行 LCZOJ 的 Node.js 判题服务。
+   未配置测试站地址时，在 *.github.io 上隐藏「测试站」入口，避免指向 404。
+   绑定自己的域名并部署 OJ 后，填写上面的地址即可恢复。 */
+(function () {
+  try {
+    if (!window.LCZOJ_TEST_SITE && /\.github\.io$/i.test(location.hostname)) {
+      document.documentElement.setAttribute('data-static-pages', '');
+    }
+  } catch (e) { /* 忽略 */ }
+})();
