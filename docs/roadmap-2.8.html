@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2.8 路线图 · LCZOJ 文档</title>
+  <meta name="description" content="2.8 版本的落地范围与验收口径（历史存档）。" />
+  <meta name="theme-color" content="#f6f8fd" id="theme-color" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="2.8 路线图 · LCZOJ 文档" />
+  <meta property="og:description" content="2.8 版本的落地范围与验收口径（历史存档）。" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/docs.css" />
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      var saved = null;
+      try { saved = localStorage.getItem('lczoj-site-theme'); } catch (e) {}
+      var prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = (saved === 'dark' || saved === 'light') ? saved : (prefers ? 'dark' : 'light');
+      d.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.11-.75.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.42.36.79 1.08.79 2.18 0 1.57-.01 2.84-.01 3.23 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="i-gitee" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 9h8v3a4 4 0 0 1-4 4H9"/><path d="M12 12h4"/></symbol>
+  </svg>
+  <header class="site-header" id="top">
+  <div class="container header-inner">
+    <a class="brand" href="../index.html" aria-label="LCZOJ 官网首页">
+      <img src="../assets/logo.svg" alt="" width="30" height="26" />
+      <span class="brand-name">LCZOJ</span>
+      <span class="brand-tag">Docs</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="../index.html#features">功能</a>
+      <a href="../index.html#showcase">界面</a>
+      <a href="../index.html#stack">技术栈</a>
+      <a href="../index.html#start">快速开始</a>
+      <a href="index.html" aria-current="true">文档</a>
+      <a href="http://127.0.0.1/" data-test-site>测试站</a>
+      <a href="../index.html#faq">常见问题</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-ghost btn-sm gh-link" href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">
+        <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg><span>GitHub</span>
+      </a>
+      <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-label="切换深色模式">
+        <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun" /></svg>
+        <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon" /></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="mobile-nav">
+        <svg class="icon icon-menu" aria-hidden="true"><use href="#i-menu" /></svg>
+        <svg class="icon icon-close" aria-hidden="true"><use href="#i-x" /></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <a href="../index.html#features">功能特性</a>
+    <a href="../index.html#showcase">界面预览</a>
+    <a href="../index.html#stack">技术栈</a>
+    <a href="../index.html#start">快速开始</a>
+    <a href="index.html">文档中心</a>
+    <a href="http://127.0.0.1/" data-test-site>测试站</a>
+    <a class="mobile-gh" href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>GitHub 源码</a>
+  </div>
+</header>
+
+  <main id="main" class="docs-page">
+    <div class="docs-container docs-layout">
+      <aside class="docs-side">
+        <button class="docs-searchbtn" type="button" data-docs-search>
+          <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+          搜索文档
+          <kbd>/</kbd>
+        </button>
+        <nav class="docs-nav" aria-label="文档目录">
+    <p class="docs-nav-group">入门与部署</p>
+        <a href="overview.html">项目总览</a>
+        <a href="beginners.html">新手部署指南</a>
+        <a href="deployment.html">部署指南</a>
+        <a href="docker.html">Docker 部署</a>
+        <a href="panel.html">宝塔 / 小皮面板</a>
+        <a href="update.html">更新与回滚</a>
+    <p class="docs-nav-group">使用与扩展</p>
+        <a href="usage.html">使用说明</a>
+        <a href="interactive.html">交互题配置</a>
+        <a href="languages.html">评测语言</a>
+        <a href="customization.html">自定义指南</a>
+        <a href="points.html">积分系统</a>
+    <p class="docs-nav-group">其他文档</p>
+        <a href="faq.html">常见问题</a>
+        <a href="contributing.html">贡献指南</a>
+        <a href="changelog.html">版本日志</a>
+        <a href="roadmap-2.8.html" aria-current="page">2.8 路线图</a>
+  </nav>
+        <div class="docs-side-meta">
+          <a href="https://github.com/lichenzhen0713/LCZOJ/blob/master/docs/ROADMAP-2.8.md" target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-external" /></svg>
+            在 GitHub 查看此页
+          </a>
+          <span>文档版本 v2.9.1</span>
+        </div>
+      </aside>
+
+      <details class="docs-drawer">
+        <summary>文档目录</summary>
+        <div class="docs-drawer-body">
+          <button class="docs-searchbtn" type="button" data-docs-search>
+            <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+            搜索文档
+          </button>
+          <nav class="docs-nav" aria-label="文档目录">
+    <p class="docs-nav-group">入门与部署</p>
+        <a href="overview.html">项目总览</a>
+        <a href="beginners.html">新手部署指南</a>
+        <a href="deployment.html">部署指南</a>
+        <a href="docker.html">Docker 部署</a>
+        <a href="panel.html">宝塔 / 小皮面板</a>
+        <a href="update.html">更新与回滚</a>
+    <p class="docs-nav-group">使用与扩展</p>
+        <a href="usage.html">使用说明</a>
+        <a href="interactive.html">交互题配置</a>
+        <a href="languages.html">评测语言</a>
+        <a href="customization.html">自定义指南</a>
+        <a href="points.html">积分系统</a>
+    <p class="docs-nav-group">其他文档</p>
+        <a href="faq.html">常见问题</a>
+        <a href="contributing.html">贡献指南</a>
+        <a href="changelog.html">版本日志</a>
+        <a href="roadmap-2.8.html" aria-current="page">2.8 路线图</a>
+  </nav>
+        </div>
+      </details>
+
+      <div class="docs-main">
+        <nav class="docs-crumb" aria-label="面包屑">
+          <a href="index.html">文档</a>
+          <svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg>
+          <span>其他文档</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg>
+          <strong>2.8 路线图</strong>
+        </nav>
+
+        <article class="doc">
+          <h1>2.8 路线图</h1>
+          <div class="doc-body">
+<blockquote>
+<p>本文用于跟踪 v2.8.0 – v2.8.4 五批需求的落地与验证情况。每批完成即更新状态、版本号与 <code>docs/CHANGELOG.md</code>。</p>
+</blockquote>
+<h2 id="需求清单与批次划分">需求清单与批次划分<a class="doc-anchor" href="#需求清单与批次划分" aria-label="复制本节链接">#</a></h2>
+<div class="table-wrap"><table><thead><tr><th style="text-align:left">#</th><th style="text-align:left">需求（站长原话要点）</th><th style="text-align:left">批次</th><th style="text-align:left">状态</th></tr></thead><tbody>
+<tr><td style="text-align:left">①</td><td style="text-align:left">允许自定义网站头标（浏览器标签页图标 / favicon）</td><td style="text-align:left">v2.8.0</td><td style="text-align:left">进行中</td></tr>
+<tr><td style="text-align:left">②</td><td style="text-align:left">题目每个测试点的评测时间默认为时限的 <strong>1.2 倍</strong>，评测设置允许更改</td><td style="text-align:left">v2.8.0</td><td style="text-align:left">进行中</td></tr>
+<tr><td style="text-align:left">③</td><td style="text-align:left">修复「系统设置」页自己的标题文字不对</td><td style="text-align:left">v2.8.0</td><td style="text-align:left">进行中</td></tr>
+<tr><td style="text-align:left">④</td><td style="text-align:left">整理「邮箱与验证」设置界面</td><td style="text-align:left">v2.8.1</td><td style="text-align:left">待开始</td></tr>
+<tr><td style="text-align:left">⑧</td><td style="text-align:left">取消「留空 = 保持已保存的授权码不变」，改为<strong>一直显示授权码</strong>（SMTP 密码）</td><td style="text-align:left">v2.8.1</td><td style="text-align:left">待开始</td></tr>
+<tr><td style="text-align:left">⑨</td><td style="text-align:left">内容过大的输入框应为<strong>不可编辑</strong>（只读）</td><td style="text-align:left">v2.8.1</td><td style="text-align:left">待开始</td></tr>
+<tr><td style="text-align:left">⑤</td><td style="text-align:left">全站积分结算方式设置<strong>样式不要突兀</strong>、与其它样式一致，可做成<strong>二级页面</strong></td><td style="text-align:left">v2.8.2</td><td style="text-align:left">待开始</td></tr>
+<tr><td style="text-align:left">⑥</td><td style="text-align:left">已处理的反馈支持<strong>二次处理</strong></td><td style="text-align:left">v2.8.3</td><td style="text-align:left">待开始</td></tr>
+<tr><td style="text-align:left">⑦</td><td style="text-align:left">反馈被处理时<strong>通知用户</strong></td><td style="text-align:left">v2.8.3</td><td style="text-align:left">待开始</td></tr>
+<tr><td style="text-align:left">⑩</td><td style="text-align:left">每批完成更新版本号 + <code>CHANGELOG</code> + <code>README</code> 版本日志（保留 10 条）</td><td style="text-align:left">每批</td><td style="text-align:left">进行中</td></tr>
+</tbody></table></div>
+<h2 id="已发布的记账版本">已发布的记账版本<a class="doc-anchor" href="#已发布的记账版本" aria-label="复制本节链接">#</a></h2>
+<div class="table-wrap"><table><thead><tr><th style="text-align:left">版本</th><th style="text-align:left">内容摘要</th><th style="text-align:left">状态</th></tr></thead><tbody>
+<tr><td style="text-align:left"><strong>v2.7.9</strong></td><td style="text-align:left">后台「功能开关」→「功能设置」（齿轮图标）；全站积分结算（默认实时 / 定时 / 手动，间隔支持小时·天）；通信题新题型（两个程序、管道直连与评测端中转）；修复通信题搭配特殊评测误报 System Error；若干界面细节</td><td style="text-align:left">已发布（服务待重启生效）</td></tr>
+</tbody></table></div>
+<h2 id="每批的验收口径统一要求">每批的验收口径（统一要求）<a class="doc-anchor" href="#每批的验收口径统一要求" aria-label="复制本节链接">#</a></h2>
+<ol>
+<li><strong>真实运行验证</strong>：功能必须用真实接口 / 真实评测 / 无头浏览器量化（<code>getBoundingClientRect</code>、计算样式、对比度）取证，不接受"看起来没问题"。</li>
+<li><strong>不破坏判题语义</strong>：普通题、IO 交互题、函数式交互题、通信题四类必须各跑一次 AC 回归。</li>
+<li><strong>不破坏样式基线</strong>：<code>public/css/style.css</code> 的 2.6.3 基干逐字节不变，新样式<strong>只追加</strong>到文件末尾。</li>
+<li><strong>数据安全</strong>：测试若改库 / 改 <code>testdata</code>，必须还原并给出前后对照；不动 <code>theme_*</code> 与站点内容数据。</li>
+<li><strong>收尾</strong>：<code>node --check</code>、<code>U+FFFD=0</code>、缓存号递增、<code>/</code> 与 <code>/api/health</code> 200、80 端口唯一 node 实例、临时文件清理。</li>
+<li><strong>并发纪律</strong>：同一时间只允许一个执行者改同一批文件；改动前重读磁盘、只用定点替换、<strong>禁止</strong> PowerShell 文本管道改源码（历史上曾因此损坏 <code>src/judge.js</code> 1008 处中文）。</li>
+</ol>
+<h2 id="风险与待决事项">风险与待决事项<a class="doc-anchor" href="#风险与待决事项" aria-label="复制本节链接">#</a></h2>
+<ul>
+<li><strong>积分结算性能</strong>：实时模式每 60 秒全量重算 1371 人并写快照（实测单轮 3.5 ~ 21 秒，单批最长约 2 秒）。因实时模式下页面本就取实时值，建议<strong>实时模式不再周期性写快照</strong>（或把周期拉长）。</li>
+<li><strong>通信题范围</strong>：目前仅支持 C/C++；<code>direct</code> 模式含 5 秒冷启动宽限、内存只采样程序二。</li>
+<li><strong>验证用测试提交</strong>：#45066–#45107（通信题与回归验证）待站长决定是否清理。</li>
+<li><strong>投稿 500</strong>：站长尚未复现；服务已带日志运行（<code>logs/server.err.log</code>），复现后可立即定位。</li>
+</ul>
+          </div>
+          <div class="doc-foot">
+            <a href="https://github.com/lichenzhen0713/LCZOJ/blob/master/docs/ROADMAP-2.8.md" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true"><use href="#i-external" /></svg>
+              在 GitHub 编辑此页
+            </a>
+            <span>文档版本 v2.9.1</span>
+          </div>
+          <nav class="doc-pager" aria-label="上一篇 / 下一篇"><a class="pager-prev" href="changelog.html"><span><svg class="icon" aria-hidden="true"><use href="#i-arrow-left" /></svg>上一篇</span><strong>版本日志</strong></a><span class="pager-empty"></span></nav>
+        </article>
+      </div>
+
+      <aside class="docs-toc" aria-label="本页目录">
+  <p class="docs-toc-title">本页目录</p>
+  <nav>
+    <a class="lvl-2" href="#需求清单与批次划分">需求清单与批次划分</a>
+    <a class="lvl-2" href="#已发布的记账版本">已发布的记账版本</a>
+    <a class="lvl-2" href="#每批的验收口径统一要求">每批的验收口径（统一要求）</a>
+    <a class="lvl-2" href="#风险与待决事项">风险与待决事项</a>
+  </nav>
+</aside>
+    </div>
+  </main>
+
+  <footer class="docs-footer">
+  <div class="docs-container docs-footer-inner">
+    <span>© 2026 LCZOJ · MIT License · 文档 v2.9.1</span>
+    <nav aria-label="文档页脚">
+      <a href="../index.html">官网首页</a>
+      <a href="index.html">文档中心</a>
+      <a href="http://127.0.0.1/" data-test-site>测试站</a>
+      <a href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://gitee.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">Gitee</a>
+    </nav>
+  </div>
+</footer>
+  <div class="docs-search-modal" id="docs-search" hidden>
+  <div class="docs-search-backdrop" data-docs-search-close></div>
+  <div class="docs-search-panel" role="dialog" aria-modal="true" aria-labelledby="docs-search-title">
+    <h2 class="sr-only" id="docs-search-title">搜索文档</h2>
+    <div class="docs-search-field">
+      <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+      <input id="docs-search-input" type="search" placeholder="搜索文档：部署、Docker、交互题、更新…" autocomplete="off" spellcheck="false" aria-label="搜索文档" />
+      <button class="docs-search-esc" type="button" data-docs-search-close>Esc</button>
+    </div>
+    <div class="docs-search-results" id="docs-search-results"></div>
+    <p class="docs-search-hint">↑ ↓ 选择 · Enter 打开 · Esc 关闭</p>
+  </div>
+</div>
+    <script src="../js/site-config.js" defer></script>
+  <script src="../js/main.js" defer></script>
+  <script src="../js/docs.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>宝塔 / 小皮面板 · LCZOJ 文档</title>
+  <meta name="description" content="面板环境准备、后台启动、反向代理与 SSL 配置。" />
+  <meta name="theme-color" content="#f6f8fd" id="theme-color" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="宝塔 / 小皮面板 · LCZOJ 文档" />
+  <meta property="og:description" content="面板环境准备、后台启动、反向代理与 SSL 配置。" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/docs.css" />
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      var saved = null;
+      try { saved = localStorage.getItem('lczoj-site-theme'); } catch (e) {}
+      var prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = (saved === 'dark' || saved === 'light') ? saved : (prefers ? 'dark' : 'light');
+      d.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.11-.75.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.42.36.79 1.08.79 2.18 0 1.57-.01 2.84-.01 3.23 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="i-gitee" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 9h8v3a4 4 0 0 1-4 4H9"/><path d="M12 12h4"/></symbol>
+  </svg>
+  <header class="site-header" id="top">
+  <div class="container header-inner">
+    <a class="brand" href="../index.html" aria-label="LCZOJ 官网首页">
+      <img src="../assets/logo.svg" alt="" width="30" height="26" />
+      <span class="brand-name">LCZOJ</span>
+      <span class="brand-tag">Docs</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="../index.html#features">功能</a>
+      <a href="../index.html#showcase">界面</a>
+      <a href="../index.html#stack">技术栈</a>
+      <a href="../index.html#start">快速开始</a>
+      <a href="index.html" aria-current="true">文档</a>
+      <a href="http://127.0.0.1/" data-test-site>测试站</a>
+      <a href="../index.html#faq">常见问题</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-ghost btn-sm gh-link" href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">
+        <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg><span>GitHub</span>
+      </a>
+      <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-label="切换深色模式">
+        <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun" /></svg>
+        <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon" /></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="mobile-nav">
+        <svg class="icon icon-menu" aria-hidden="true"><use href="#i-menu" /></svg>
+        <svg class="icon icon-close" aria-hidden="true"><use href="#i-x" /></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <a href="../index.html#features">功能特性</a>
+    <a href="../index.html#showcase">界面预览</a>
+    <a href="../index.html#stack">技术栈</a>
+    <a href="../index.html#start">快速开始</a>
+    <a href="index.html">文档中心</a>
+    <a href="http://127.0.0.1/" data-test-site>测试站</a>
+    <a class="mobile-gh" href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>GitHub 源码</a>
+  </div>
+</header>
+
+  <main id="main" class="docs-page">
+    <div class="docs-container docs-layout">
+      <aside class="docs-side">
+        <button class="docs-searchbtn" type="button" data-docs-search>
+          <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+          搜索文档
+          <kbd>/</kbd>
+        </button>
+        <nav class="docs-nav" aria-label="文档目录">
+    <p class="docs-nav-group">入门与部署</p>
+        <a href="overview.html">项目总览</a>
+        <a href="beginners.html">新手部署指南</a>
+        <a href="deployment.html">部署指南</a>
+        <a href="docker.html">Docker 部署</a>
+        <a href="panel.html" aria-current="page">宝塔 / 小皮面板</a>
+        <a href="update.html">更新与回滚</a>
+    <p class="docs-nav-group">使用与扩展</p>
+        <a href="usage.html">使用说明</a>
+        <a href="interactive.html">交互题配置</a>
+        <a href="languages.html">评测语言</a>
+        <a href="customization.html">自定义指南</a>
+        <a href="points.html">积分系统</a>
+    <p class="docs-nav-group">其他文档</p>
+        <a href="faq.html">常见问题</a>
+        <a href="contributing.html">贡献指南</a>
+        <a href="changelog.html">版本日志</a>
+        <a href="roadmap-2.8.html">2.8 路线图</a>
+  </nav>
+        <div class="docs-side-meta">
+          <a href="https://github.com/lichenzhen0713/LCZOJ/blob/master/docs/PANEL.md" target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-external" /></svg>
+            在 GitHub 查看此页
+          </a>
+          <span>文档版本 v2.9.1</span>
+        </div>
+      </aside>
+
+      <details class="docs-drawer">
+        <summary>文档目录</summary>
+        <div class="docs-drawer-body">
+          <button class="docs-searchbtn" type="button" data-docs-search>
+            <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+            搜索文档
+          </button>
+          <nav class="docs-nav" aria-label="文档目录">
+    <p class="docs-nav-group">入门与部署</p>
+        <a href="overview.html">项目总览</a>
+        <a href="beginners.html">新手部署指南</a>
+        <a href="deployment.html">部署指南</a>
+        <a href="docker.html">Docker 部署</a>
+        <a href="panel.html" aria-current="page">宝塔 / 小皮面板</a>
+        <a href="update.html">更新与回滚</a>
+    <p class="docs-nav-group">使用与扩展</p>
+        <a href="usage.html">使用说明</a>
+        <a href="interactive.html">交互题配置</a>
+        <a href="languages.html">评测语言</a>
+        <a href="customization.html">自定义指南</a>
+        <a href="points.html">积分系统</a>
+    <p class="docs-nav-group">其他文档</p>
+        <a href="faq.html">常见问题</a>
+        <a href="contributing.html">贡献指南</a>
+        <a href="changelog.html">版本日志</a>
+        <a href="roadmap-2.8.html">2.8 路线图</a>
+  </nav>
+        </div>
+      </details>
+
+      <div class="docs-main">
+        <nav class="docs-crumb" aria-label="面包屑">
+          <a href="index.html">文档</a>
+          <svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg>
+          <span>入门与部署</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg>
+          <strong>宝塔 / 小皮面板</strong>
+        </nav>
+
+        <article class="doc">
+          <h1>宝塔 / 小皮面板</h1>
+          <div class="doc-body">
+<p>本文说明在宝塔面板与小皮面板上部署 LCZOJ 的步骤。</p>
+<p><strong>部署模型</strong>：面板站点（Nginx）占用 80 / 443 端口，LCZOJ 监听 3000 端口，由站点以反向代理转发请求。</p>
+<hr />
+<h2 id="1-部署流程概览">1. 部署流程概览<a class="doc-anchor" href="#1-部署流程概览" aria-label="复制本节链接">#</a></h2>
+<div class="table-wrap"><table><thead><tr><th style="text-align:left">步骤</th><th style="text-align:left">操作</th><th style="text-align:left">执行方</th></tr></thead><tbody>
+<tr><td style="text-align:left">① 安装 Node.js</td><td style="text-align:left">在面板软件商店安装 <strong>v24</strong></td><td style="text-align:left">手动，约 1 分钟</td></tr>
+<tr><td style="text-align:left">② 执行准备命令</td><td style="text-align:left"><code>node deploy/panel-install.js</code>：准备环境、后台启动服务、生成反向代理配置</td><td style="text-align:left">脚本自动</td></tr>
+<tr><td style="text-align:left">③ 配置站点</td><td style="text-align:left">将生成的 <code>deploy/panel-nginx.conf</code> 内容合并到站点配置，并申请 SSL 证书</td><td style="text-align:left">手动，约 1 分钟</td></tr>
+</tbody></table></div>
+<p>命令执行完成后会输出服务就绪状态与后续操作清单。</p>
+<hr />
+<h2 id="2-宝塔面板linux">2. 宝塔面板（Linux）<a class="doc-anchor" href="#2-宝塔面板linux" aria-label="复制本节链接">#</a></h2>
+<h3 id="21-安装-nodejs-v24">2.1 安装 Node.js v24<a class="doc-anchor" href="#21-安装-nodejs-v24" aria-label="复制本节链接">#</a></h3>
+<ol>
+<li>左侧「软件商店」→ 搜索并安装 <strong>Node.js 版本管理器</strong>（部分版本名为 <strong>PM2管理器</strong>）；</li>
+<li>打开该插件 → 安装 <strong>Node 版本 v24</strong> → 设为默认版本。</li>
+</ol>
+<p>注意事项：LCZOJ 使用 Node.js 内置的 <code>node:sqlite</code> 模块，要求 Node.js ≥ 22.5（推荐 v24）；版本过低时启动会报 <code>Cannot find module 'node:sqlite'</code>。</p>
+<h3 id="22-上传项目并执行准备命令">2.2 上传项目并执行准备命令<a class="doc-anchor" href="#22-上传项目并执行准备命令" aria-label="复制本节链接">#</a></h3>
+<ol>
+<li>左侧「文件」→ 进入 <code>/www/wwwroot/</code> → 新建目录（建议以域名命名，例如 <code>oj.example.com</code>）；</li>
+<li>上传项目压缩包并解压，解压后该目录下应直接包含 <code>server.js</code>、<code>src</code>、<code>public</code>、<code>deploy</code>；</li>
+<li>打开左侧「终端」，依次执行：</li>
+</ol>
+<pre><code class="lang-bash">cd /www/wwwroot/oj.example.com     # 替换为实际目录
+chown -R www:www .
+node deploy/panel-install.js       # 准备环境 + 后台启动服务 + 生成反向代理配置</code></pre>
+<p>该命令依次执行：检查 Node.js 版本 → 创建数据目录并修正属主 → 写入启动参数 <code>deploy/panel.env</code> → 安装评测语言编译器 → 后台启动服务并等待健康检查通过 → 生成 <code>deploy/panel-nginx.conf</code>。</p>
+<p>常用附加参数：<code>--check</code>（仅检查环境，不修改文件）、<code>--start</code> / <code>--stop</code>（启动 / 停止后台服务）、<code>--port</code>（指定端口）。</p>
+<h3 id="23-配置站点反向代理">2.3 配置站点反向代理<a class="doc-anchor" href="#23-配置站点反向代理" aria-label="复制本节链接">#</a></h3>
+<p>方式 A（使用面板的反向代理功能）：进入目标站点 → 「反向代理」→「添加反向代理」，填写：</p>
+<div class="table-wrap"><table><thead><tr><th style="text-align:left">字段</th><th style="text-align:left">值</th></tr></thead><tbody>
+<tr><td style="text-align:left">代理名称</td><td style="text-align:left"><code>lczoj</code></td></tr>
+<tr><td style="text-align:left">目标 URL</td><td style="text-align:left"><code>http://127.0.0.1:3000</code></td></tr>
+<tr><td style="text-align:left">发送域名</td><td style="text-align:left"><code>$host</code></td></tr>
+</tbody></table></div>
+<p>方式 B（直接编辑站点配置）：进入目标站点 → 「配置文件」，将 <code>deploy/panel-nginx.conf</code> 的内容合并到 <code>server { }</code> 中，并修改 <code>server_name</code> 为实际域名。该配置已包含 <code>client_max_body_size 64m;</code>（缺少此项时上传较大答案包会返回 413）。</p>
+<p>保存后通过域名访问站点。</p>
+<blockquote>
+<p>还没有域名时可以先直接用 <code>http://服务器公网IP:端口/</code> 访问（脚本会打印公网地址；自动识别失败时用 <code>LCZOJ_PUBLIC_IP=你的IP</code> 指定）。</p>
+<p>管理员账号为 <code>admin</code>，<strong>初始密码在首次启动时随机生成</strong>：启动日志会打印一次，也写在数据目录的 <code>admin-password.txt</code>。</p>
+</blockquote>
+<h3 id="24-申请-ssl-证书">2.4 申请 SSL 证书<a class="doc-anchor" href="#24-申请-ssl-证书" aria-label="复制本节链接">#</a></h3>
+<p>站点 → 「SSL」→ 「Let's Encrypt」→ 勾选域名 → 申请 → 开启「强制 HTTPS」。</p>
+<h3 id="25-交由面板托管进程可选">2.5 交由面板托管进程（可选）<a class="doc-anchor" href="#25-交由面板托管进程可选" aria-label="复制本节链接">#</a></h3>
+<p><code>panel-install.js</code> 已在后台启动服务，进程号记录于 <code>deploy/panel.pid</code>。如需由面板托管并提供开机自启：</p>
+<pre><code class="lang-bash">node deploy/panel-install.js --stop       # 先停止脚本启动的进程</code></pre>
+<p>随后在「网站 → Node 项目 → 添加」中填写：项目目录为站点目录，启动命令为 <code>bash deploy/panel-start.sh</code>，端口 <code>3000</code>，运行用户 <code>www</code>。也可使用 PM2：</p>
+<pre><code class="lang-bash">npm i -g pm2
+pm2 start deploy/ecosystem.config.js &amp;&amp; pm2 save &amp;&amp; pm2 startup</code></pre>
+<hr />
+<h2 id="3-小皮面板phpstudy-面板">3. 小皮面板（phpStudy 面板）<a class="doc-anchor" href="#3-小皮面板phpstudy-面板" aria-label="复制本节链接">#</a></h2>
+<p>小皮面板以 PHP 环境为主，部署 Node.js 应用同样采用「面板管理域名与证书，应用监听 3000 端口」的方式。</p>
+<h3 id="31-安装-nodejs-v24">3.1 安装 Node.js v24<a class="doc-anchor" href="#31-安装-nodejs-v24" aria-label="复制本节链接">#</a></h3>
+<ol>
+<li>打开面板「软件商店」，如存在 <strong>Node.js / Node 版本管理</strong>，直接安装 <strong>v24</strong>；</li>
+<li>否则手动安装：</li>
+</ol>
+<ul>
+<li>Windows：从 &lt;https://nodejs.org/zh-cn/download&gt; 下载 v24 的 <code>.msi</code> 安装包，安装时勾选 Add to PATH，安装完成后重新打开面板终端；</li>
+<li>Linux：执行 <code>curl -fsSL https://deb.nodesource.com/setup_24.x | bash - &amp;&amp; apt-get install -y nodejs</code>。</li>
+</ul>
+<p>验证：在面板终端执行 <code>node -v</code>，输出 <code>v24.x</code> 即安装成功。</p>
+<h3 id="32-上传项目并执行准备命令">3.2 上传项目并执行准备命令<a class="doc-anchor" href="#32-上传项目并执行准备命令" aria-label="复制本节链接">#</a></h3>
+<ol>
+<li>将项目解压至站点目录（Windows 默认 <code>C:\phpstudy_pro\WWW\lczoj</code>，Linux 默认 <code>/www/wwwroot/lczoj</code>）；</li>
+<li>在面板终端执行：</li>
+</ol>
+<pre><code class="lang-bash">cd /www/wwwroot/lczoj            # Windows：cd /d C:\phpstudy_pro\WWW\lczoj
+node deploy/panel-install.js      # Windows 同样适用</code></pre>
+<p>如提示找不到 <code>node</code>，请重新打开终端窗口（环境变量需在新窗口中生效）。</p>
+<h3 id="33-创建站点并配置反向代理">3.3 创建站点并配置反向代理<a class="doc-anchor" href="#33-创建站点并配置反向代理" aria-label="复制本节链接">#</a></h3>
+<ol>
+<li>面板 → 「网站」→ 「创建网站」，填写域名，PHP 版本可任选（本站不使用 PHP）；</li>
+<li>进入该站点 → 「配置文件」，将 <code>deploy/panel-nginx.conf</code> 的内容合并到 <code>server { }</code>（修改 <code>server_name</code> 为实际域名）；如面板提供「反向代理」功能，也可直接填写目标 <code>http://127.0.0.1:3000</code>；</li>
+<li>若小皮使用 <strong>Apache</strong>，改用以下配置（需启用 <code>mod_proxy</code> 与 <code>mod_proxy_http</code>）：</li>
+</ol>
+<pre><code class="lang-apache">ProxyPreserveHost On
+ProxyPass        / http://127.0.0.1:3000/ retry=0 timeout=300
+ProxyPassReverse / http://127.0.0.1:3000/</code></pre>
+<ol>
+<li>Windows 环境还需在系统防火墙中放行 80 与 443 端口。</li>
+</ol>
+<h3 id="34-申请-ssl-证书">3.4 申请 SSL 证书<a class="doc-anchor" href="#34-申请-ssl-证书" aria-label="复制本节链接">#</a></h3>
+<p>站点 → 「SSL / 证书」→ 申请 Let's Encrypt 免费证书（或上传已有证书）→ 开启强制 HTTPS。</p>
+<h3 id="35-开机自启可选">3.5 开机自启（可选）<a class="doc-anchor" href="#35-开机自启可选" aria-label="复制本节链接">#</a></h3>
+<ul>
+<li><strong>Windows</strong>：面板 → 计划任务 → 添加任务，执行程序 <code>cmd</code>，参数 <code>/c "cd /d C:\phpstudy_pro\WWW\lczoj &amp;&amp; deploy\panel-start.bat"</code>，触发方式选择开机启动；</li>
+<li><strong>Linux</strong>：<code>pm2 start deploy/ecosystem.config.js &amp;&amp; pm2 save &amp;&amp; pm2 startup</code>。</li>
+</ul>
+<hr />
+<h2 id="4-版本更新">4. 版本更新<a class="doc-anchor" href="#4-版本更新" aria-label="复制本节链接">#</a></h2>
+<pre><code class="lang-bash">node deploy/update.js            # 检查新版本 → 备份数据库 → 覆盖代码 → 自动重启
+node deploy/update.js --check    # 仅检查是否有新版本</code></pre>
+<p>脚本会自动识别服务启动方式（PM2 / systemd / <code>deploy/panel.pid</code>）并执行对应重启操作。数据目录 <code>data/</code> 不受影响。</p>
+<p>使用内置 <code>admin</code> 账号登录后，也可在「系统设置（<code>#/settings</code>） → 版本更新」中完成同样的操作。<br />完整说明见 <a href="update.html">UPDATE.md</a>。</p>
+<hr />
+<h2 id="5-启动参数">5. 启动参数<a class="doc-anchor" href="#5-启动参数" aria-label="复制本节链接">#</a></h2>
+<p>参数保存在 <code>deploy/panel.env</code>（由 <code>panel-install.js</code> 生成），修改后执行 <code>--stop</code> 再 <code>--start</code> 生效：</p>
+<pre><code class="lang-ini">PORT=3000              # 服务端口；面板站点的 80/443 由 Nginx 使用，故此处使用 3000
+OJ_HOST=127.0.0.1      # 仅允许本机访问（由 Nginx 反向代理），安全性更高
+OJ_MAX_JUDGES=4        # 并行判题数，按服务器核数调整，建议保留 1~2 核给系统
+TZ=Asia/Shanghai       # 时区（影响页面显示时间）</code></pre>
+<p>修改 <code>PORT</code> 后需同步修改反向代理的目标地址，否则会出现 502。</p>
+<hr />
+<h2 id="6-故障排查">6. 故障排查<a class="doc-anchor" href="#6-故障排查" aria-label="复制本节链接">#</a></h2>
+<div class="table-wrap"><table><thead><tr><th style="text-align:left">现象</th><th style="text-align:left">原因与处理</th></tr></thead><tbody>
+<tr><td style="text-align:left">启动报 <code>Cannot find module 'node:sqlite'</code></td><td style="text-align:left">Node.js 版本过低，安装 v24；或临时将启动命令改为 <code>node --experimental-sqlite server.js</code></td></tr>
+<tr><td style="text-align:left">502 Bad Gateway</td><td style="text-align:left">后端未启动或端口不一致。先执行 <code>node deploy/panel-install.js --start</code> 确认就绪，再查看日志 <code>logs/lczoj.log</code>（PM2 用户：<code>pm2 logs lczoj</code>）</td></tr>
+<tr><td style="text-align:left">直接访问 <code>IP:3000</code> 无响应，域名可访问</td><td style="text-align:left">属正常现象：<code>OJ_HOST=127.0.0.1</code> 表示仅允许本机访问</td></tr>
+<tr><td style="text-align:left">页面样式异常</td><td style="text-align:left">反向代理「目标 URL」不应包含路径，应为 <code>http://127.0.0.1:3000</code></td></tr>
+<tr><td style="text-align:left">上传答案压缩包报 413</td><td style="text-align:left">站点配置中增加 <code>client_max_body_size 64m;</code>（生成的 <code>panel-nginx.conf</code> 已包含）</td></tr>
+<tr><td style="text-align:left">题库保存失败或数据库报错</td><td style="text-align:left"><code>data</code> 目录权限不足：<code>chown -R www:www 项目目录/data</code>；Windows 在面板权限设置中为站点用户授予读写权限</td></tr>
+<tr><td style="text-align:left">页面时间相差 8 小时</td><td style="text-align:left">在 <code>deploy/panel.env</code> 中设置 <code>TZ=Asia/Shanghai</code> 后重启服务</td></tr>
+<tr><td style="text-align:left">提交后长期处于「判题中」</td><td style="text-align:left">缺少该语言的编译器（<code>node deploy/check-env.js</code> 会标记），或重启服务时打断了评测；重新提交即可</td></tr>
+<tr><td style="text-align:left">服务器重启后站点未启动</td><td style="text-align:left">按第 2.5 / 3.5 节配置开机自启（Node 项目 / PM2 / 计划任务）</td></tr>
+</tbody></table></div>
+<hr />
+<h2 id="7-备份与迁移">7. 备份与迁移<a class="doc-anchor" href="#7-备份与迁移" aria-label="复制本节链接">#</a></h2>
+<ul>
+<li><strong>备份</strong>：将 <code>data</code> 目录完整下载即可（包含数据库 <code>oj.db</code>、题库测试数据、附件与头像）。建议在面板中创建定时打包任务；</li>
+<li><strong>迁移</strong>：在新服务器按本文完成部署后，用备份的 <code>data</code> 目录覆盖即可。</li>
+</ul>
+<hr />
+<h2 id="8-其它部署方式">8. 其它部署方式<a class="doc-anchor" href="#8-其它部署方式" aria-label="复制本节链接">#</a></h2>
+<ul>
+<li>Docker（一键脚本，未安装 Docker 时自动安装）：<a href="docker.html">DOCKER.md</a></li>
+<li>普通 Linux（一键脚本 / systemd）：<a href="deployment.html">DEPLOYMENT.md</a></li>
+<li>版本更新与回滚：<a href="update.html">UPDATE.md</a></li>
+<li>环境自检：<code>node deploy/check-env.js</code></li>
+</ul>
+          </div>
+          <div class="doc-foot">
+            <a href="https://github.com/lichenzhen0713/LCZOJ/blob/master/docs/PANEL.md" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true"><use href="#i-external" /></svg>
+              在 GitHub 编辑此页
+            </a>
+            <span>文档版本 v2.9.1</span>
+          </div>
+          <nav class="doc-pager" aria-label="上一篇 / 下一篇"><a class="pager-prev" href="docker.html"><span><svg class="icon" aria-hidden="true"><use href="#i-arrow-left" /></svg>上一篇</span><strong>Docker 部署</strong></a><a class="pager-next" href="update.html"><span>下一篇<svg class="icon" aria-hidden="true"><use href="#i-arrow-right" /></svg></span><strong>更新与回滚</strong></a></nav>
+        </article>
+      </div>
+
+      <aside class="docs-toc" aria-label="本页目录">
+  <p class="docs-toc-title">本页目录</p>
+  <nav>
+    <a class="lvl-2" href="#1-部署流程概览">1. 部署流程概览</a>
+    <a class="lvl-2" href="#2-宝塔面板linux">2. 宝塔面板（Linux）</a>
+    <a class="lvl-3" href="#21-安装-nodejs-v24">2.1 安装 Node.js v24</a>
+    <a class="lvl-3" href="#22-上传项目并执行准备命令">2.2 上传项目并执行准备命令</a>
+    <a class="lvl-3" href="#23-配置站点反向代理">2.3 配置站点反向代理</a>
+    <a class="lvl-3" href="#24-申请-ssl-证书">2.4 申请 SSL 证书</a>
+    <a class="lvl-3" href="#25-交由面板托管进程可选">2.5 交由面板托管进程（可选）</a>
+    <a class="lvl-2" href="#3-小皮面板phpstudy-面板">3. 小皮面板（phpStudy 面板）</a>
+    <a class="lvl-3" href="#31-安装-nodejs-v24">3.1 安装 Node.js v24</a>
+    <a class="lvl-3" href="#32-上传项目并执行准备命令">3.2 上传项目并执行准备命令</a>
+    <a class="lvl-3" href="#33-创建站点并配置反向代理">3.3 创建站点并配置反向代理</a>
+    <a class="lvl-3" href="#34-申请-ssl-证书">3.4 申请 SSL 证书</a>
+    <a class="lvl-3" href="#35-开机自启可选">3.5 开机自启（可选）</a>
+    <a class="lvl-2" href="#4-版本更新">4. 版本更新</a>
+    <a class="lvl-2" href="#5-启动参数">5. 启动参数</a>
+    <a class="lvl-2" href="#6-故障排查">6. 故障排查</a>
+    <a class="lvl-2" href="#7-备份与迁移">7. 备份与迁移</a>
+    <a class="lvl-2" href="#8-其它部署方式">8. 其它部署方式</a>
+  </nav>
+</aside>
+    </div>
+  </main>
+
+  <footer class="docs-footer">
+  <div class="docs-container docs-footer-inner">
+    <span>© 2026 LCZOJ · MIT License · 文档 v2.9.1</span>
+    <nav aria-label="文档页脚">
+      <a href="../index.html">官网首页</a>
+      <a href="index.html">文档中心</a>
+      <a href="http://127.0.0.1/" data-test-site>测试站</a>
+      <a href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://gitee.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">Gitee</a>
+    </nav>
+  </div>
+</footer>
+  <div class="docs-search-modal" id="docs-search" hidden>
+  <div class="docs-search-backdrop" data-docs-search-close></div>
+  <div class="docs-search-panel" role="dialog" aria-modal="true" aria-labelledby="docs-search-title">
+    <h2 class="sr-only" id="docs-search-title">搜索文档</h2>
+    <div class="docs-search-field">
+      <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+      <input id="docs-search-input" type="search" placeholder="搜索文档：部署、Docker、交互题、更新…" autocomplete="off" spellcheck="false" aria-label="搜索文档" />
+      <button class="docs-search-esc" type="button" data-docs-search-close>Esc</button>
+    </div>
+    <div class="docs-search-results" id="docs-search-results"></div>
+    <p class="docs-search-hint">↑ ↓ 选择 · Enter 打开 · Esc 关闭</p>
+  </div>
+</div>
+    <script src="../js/site-config.js" defer></script>
+  <script src="../js/main.js" defer></script>
+  <script src="../js/docs.js" defer></script>
+</body>
+</html>

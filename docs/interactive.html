@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>交互题配置 · LCZOJ 文档</title>
+  <meta name="description" content="IO 交互与函数式交互题的配置步骤、写法要点与判题规则。" />
+  <meta name="theme-color" content="#f6f8fd" id="theme-color" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="交互题配置 · LCZOJ 文档" />
+  <meta property="og:description" content="IO 交互与函数式交互题的配置步骤、写法要点与判题规则。" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/docs.css" />
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      var saved = null;
+      try { saved = localStorage.getItem('lczoj-site-theme'); } catch (e) {}
+      var prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = (saved === 'dark' || saved === 'light') ? saved : (prefers ? 'dark' : 'light');
+      d.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.11-.75.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.42.36.79 1.08.79 2.18 0 1.57-.01 2.84-.01 3.23 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="i-gitee" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 9h8v3a4 4 0 0 1-4 4H9"/><path d="M12 12h4"/></symbol>
+  </svg>
+  <header class="site-header" id="top">
+  <div class="container header-inner">
+    <a class="brand" href="../index.html" aria-label="LCZOJ 官网首页">
+      <img src="../assets/logo.svg" alt="" width="30" height="26" />
+      <span class="brand-name">LCZOJ</span>
+      <span class="brand-tag">Docs</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="../index.html#features">功能</a>
+      <a href="../index.html#showcase">界面</a>
+      <a href="../index.html#stack">技术栈</a>
+      <a href="../index.html#start">快速开始</a>
+      <a href="index.html" aria-current="true">文档</a>
+      <a href="http://127.0.0.1/" data-test-site>测试站</a>
+      <a href="../index.html#faq">常见问题</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-ghost btn-sm gh-link" href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">
+        <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg><span>GitHub</span>
+      </a>
+      <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-label="切换深色模式">
+        <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun" /></svg>
+        <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon" /></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="mobile-nav">
+        <svg class="icon icon-menu" aria-hidden="true"><use href="#i-menu" /></svg>
+        <svg class="icon icon-close" aria-hidden="true"><use href="#i-x" /></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <a href="../index.html#features">功能特性</a>
+    <a href="../index.html#showcase">界面预览</a>
+    <a href="../index.html#stack">技术栈</a>
+    <a href="../index.html#start">快速开始</a>
+    <a href="index.html">文档中心</a>
+    <a href="http://127.0.0.1/" data-test-site>测试站</a>
+    <a class="mobile-gh" href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>GitHub 源码</a>
+  </div>
+</header>
+
+  <main id="main" class="docs-page">
+    <div class="docs-container docs-layout">
+      <aside class="docs-side">
+        <button class="docs-searchbtn" type="button" data-docs-search>
+          <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+          搜索文档
+          <kbd>/</kbd>
+        </button>
+        <nav class="docs-nav" aria-label="文档目录">
+    <p class="docs-nav-group">入门与部署</p>
+        <a href="overview.html">项目总览</a>
+        <a href="beginners.html">新手部署指南</a>
+        <a href="deployment.html">部署指南</a>
+        <a href="docker.html">Docker 部署</a>
+        <a href="panel.html">宝塔 / 小皮面板</a>
+        <a href="update.html">更新与回滚</a>
+    <p class="docs-nav-group">使用与扩展</p>
+        <a href="usage.html">使用说明</a>
+        <a href="interactive.html" aria-current="page">交互题配置</a>
+        <a href="languages.html">评测语言</a>
+        <a href="customization.html">自定义指南</a>
+        <a href="points.html">积分系统</a>
+    <p class="docs-nav-group">其他文档</p>
+        <a href="faq.html">常见问题</a>
+        <a href="contributing.html">贡献指南</a>
+        <a href="changelog.html">版本日志</a>
+        <a href="roadmap-2.8.html">2.8 路线图</a>
+  </nav>
+        <div class="docs-side-meta">
+          <a href="https://github.com/lichenzhen0713/LCZOJ/blob/master/docs/INTERACTIVE.md" target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-external" /></svg>
+            在 GitHub 查看此页
+          </a>
+          <span>文档版本 v2.9.1</span>
+        </div>
+      </aside>
+
+      <details class="docs-drawer">
+        <summary>文档目录</summary>
+        <div class="docs-drawer-body">
+          <button class="docs-searchbtn" type="button" data-docs-search>
+            <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+            搜索文档
+          </button>
+          <nav class="docs-nav" aria-label="文档目录">
+    <p class="docs-nav-group">入门与部署</p>
+        <a href="overview.html">项目总览</a>
+        <a href="beginners.html">新手部署指南</a>
+        <a href="deployment.html">部署指南</a>
+        <a href="docker.html">Docker 部署</a>
+        <a href="panel.html">宝塔 / 小皮面板</a>
+        <a href="update.html">更新与回滚</a>
+    <p class="docs-nav-group">使用与扩展</p>
+        <a href="usage.html">使用说明</a>
+        <a href="interactive.html" aria-current="page">交互题配置</a>
+        <a href="languages.html">评测语言</a>
+        <a href="customization.html">自定义指南</a>
+        <a href="points.html">积分系统</a>
+    <p class="docs-nav-group">其他文档</p>
+        <a href="faq.html">常见问题</a>
+        <a href="contributing.html">贡献指南</a>
+        <a href="changelog.html">版本日志</a>
+        <a href="roadmap-2.8.html">2.8 路线图</a>
+  </nav>
+        </div>
+      </details>
+
+      <div class="docs-main">
+        <nav class="docs-crumb" aria-label="面包屑">
+          <a href="index.html">文档</a>
+          <svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg>
+          <span>使用与扩展</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg>
+          <strong>交互题配置</strong>
+        </nav>
+
+        <article class="doc">
+          <h1>交互题配置</h1>
+          <div class="doc-body">
+<blockquote>
+<p>本文面向<strong>管理员 / 出题人</strong>：讲解 IO 交互题（<code>interactor.cpp</code>）与函数式交互题（<code>grader.cpp</code> + 头文件）的配置步骤、写法要点与判题规则，并说明选手侧注意事项。</p>
+<p>普通题、Special Judge、提交答案题的配置见 <a href="usage.html">USAGE.md</a>；部署与升级见 <a href="deployment.html">DEPLOYMENT.md</a>、<a href="update.html">UPDATE.md</a>。</p>
+</blockquote>
+<hr />
+<h2 id="一两种交互题">一、两种交互题<a class="doc-anchor" href="#一两种交互题" aria-label="复制本节链接">#</a></h2>
+<p>「题目类型」共 <strong>4 种</strong>：普通题 / 提交答案 / 交互题 · IO / 交互题 · 函数式。本文只讲后两种交互类型（前两种见 <a href="usage.html">USAGE.md</a>）。</p>
+<div class="table-wrap"><table><thead><tr><th style="text-align:left">题目类型</th><th style="text-align:left"><code>problem_type</code></th><th style="text-align:left">评测方式</th><th style="text-align:left">支持的提交语言</th></tr></thead><tbody>
+<tr><td style="text-align:left"><strong>交互题 · IO</strong></td><td style="text-align:left"><code>interactive_io</code></td><td style="text-align:left">选手程序与题目自带的<strong>交互器</strong>通过标准输入输出实时对话，由交互器给出结论</td><td style="text-align:left">全部语言</td></tr>
+<tr><td style="text-align:left"><strong>交互题 · 函数式</strong></td><td style="text-align:left"><code>interactive_func</code></td><td style="text-align:left">评测机把 <code>grader.cpp</code> 与选手提交<strong>一起编译链接</strong>后运行，由 grader 调用选手实现的函数</td><td style="text-align:left">仅 C / C++</td></tr>
+</tbody></table></div>
+<p>交互题也可以勾选 <strong>Special Judge</strong>（开关在题目编辑器顶部的公共设置区，四种题目类型共用）：IO 交互题由交互器把选手的最终答案写入 <code>argv[2]</code> 指定的文件，交互结束后交给 checker 判定；函数式交互题则把 grader 的标准输出交给 checker（见第二节与第三节）。</p>
+<p>配套文件都放在题目的测试数据目录里（与 <code>1.in</code>、<code>1.out</code> 同级）：</p>
+<div class="table-wrap"><table><thead><tr><th style="text-align:left">文件</th><th style="text-align:left">位置</th><th style="text-align:left">用途</th></tr></thead><tbody>
+<tr><td style="text-align:left">交互器</td><td style="text-align:left"><code>data/testdata/&lt;题号&gt;/interactor.cpp</code></td><td style="text-align:left">IO 交互题的评测程序（必填）</td></tr>
+<tr><td style="text-align:left">grader</td><td style="text-align:left"><code>data/testdata/&lt;题号&gt;/grader.cpp</code></td><td style="text-align:left">函数式交互题的评测程序（必填，自带 <code>main()</code>）</td></tr>
+<tr><td style="text-align:left">头文件</td><td style="text-align:left"><code>data/testdata/&lt;题号&gt;/&lt;名字&gt;.h</code></td><td style="text-align:left">函数式交互题的公共接口声明（可多个）</td></tr>
+</tbody></table></div>
+<p>测试数据本身照常准备：每个测试点的 <code>.in</code> 就是<strong>交互器 / grader 要读的隐藏数据</strong>（选手看不到），<code>.out</code> 在交互题里可以不填。</p>
+<hr />
+<h2 id="二后台配置步骤">二、后台配置步骤<a class="doc-anchor" href="#二后台配置步骤" aria-label="复制本节链接">#</a></h2>
+<ol>
+<li>进入 <strong>管理后台 → 题目管理</strong>，新建题目或点某题的「编辑题目」；</li>
+<li>「基本信息 → <strong>题目类型</strong>」选择 <code>交互题 · IO</code> 或 <code>交互题 · 函数式</code>（下拉共 4 项：普通题 / 提交答案 / 交互题 · IO / 交互题 · 函数式）；选中交互类型后，页面会出现「<strong>交互题配置</strong>」卡片：</li>
+</ol>
+<ul>
+<li><strong>交互器源码（interactor.cpp）</strong>：直接粘贴，或点「选择 interactor.cpp 文件」载入本地文件（仅交互题 · IO 显示）；</li>
+<li><strong>grader 源码（grader.cpp）</strong>：同上（仅交互题 · 函数式显示）；</li>
+<li><strong>头文件</strong>：点「添加头文件」逐个添加，每项填写<strong>名称</strong>（如 <code>problem.h</code>）与内容，也可上传文件；行内「删除」移除；保存时<strong>整体替换</strong>该题的头文件列表（未列出的会被删除）；</li>
+<li><strong>交互说明</strong>：Markdown / LaTeX，会以「交互说明」区块展示在题目页，用于写清提问格式、函数签名与调用约定；</li>
+</ul>
+<ol>
+<li><strong>是否使用 Special Judge（SPJ）在页面顶部的公共设置区统一设置</strong>：题目类型下方就是一个「使用 Special Judge（SPJ）」开关，勾选后紧接着展开 checker 的编辑 / 上传区（<strong>四种题目类型共用同一个开关与同一份 <code>checker.cpp</code></strong>）。交互题勾选后，交互题配置卡片里会多出一段提示：交互题 · IO 的交互器要把选手的最终答案写入 <code>argv[2]</code>，交互结束后由 checker 校验 <code>&lt;输入文件&gt; &lt;交互器输出文件&gt; &lt;答案文件&gt;</code>；交互题 · 函数式则把 grader 的标准输出交给 checker；</li>
+<li>点「<strong>保存题目信息</strong>」——题目类型、SPJ 勾选、交互说明与上述配套源码一并保存（会写入 <code>data/testdata/&lt;题号&gt;/</code>）；</li>
+<li>再按普通题的方式配置测试数据（<code>1.in / 1.out</code>…）与子任务分数。</li>
+</ol>
+<p>补充说明：</p>
+<ul>
+<li><strong>清空文本框后保存 = 删除对应文件</strong>；测试数据 ZIP 上传（覆盖或合并）不会删除交互器 / grader / 头文件 / checker；</li>
+<li>编辑已有题目时会自动<strong>回填</strong>类型、SPJ 勾选、交互器、grader、头文件、交互说明与 checker，状态行会显示「✓ 已找到 interactor.cpp / grader.cpp」；</li>
+<li>把题目<strong>改回「普通题」或「提交答案」</strong>不会删除这些文件（只是不再参与评测），改回交互类型即可继续使用；</li>
+<li>checker 的保存方式与普通 SPJ 题完全一致（点「保存 checker.cpp」，或在上传测试数据 ZIP 时一并带上 <code>checker.cpp</code>）；</li>
+<li>交互器与 grader 都按「源码 + 头文件 + 编译参数」哈希缓存在 <code>data/interactor_cache/</code>，checker 缓存在 <code>data/spj_cache/</code>，<strong>改动后自动重新编译</strong>，同一次评测内只编译一次。</li>
+</ul>
+<hr />
+<h2 id="三交互题-iointeractorcpp-写法要点">三、交互题 · IO：<code>interactor.cpp</code> 写法要点<a class="doc-anchor" href="#三交互题-iointeractorcpp-写法要点" aria-label="复制本节链接">#</a></h2>
+<h3 id="运行方式务必先读">运行方式（务必先读）<a class="doc-anchor" href="#运行方式务必先读" aria-label="复制本节链接">#</a></h3>
+<p>评测机按下面的方式启动交互器，并把<strong>交互器的标准输出接到选手程序的标准输入</strong>、<strong>选手程序的输出接到交互器的标准输入</strong>：</p>
+<pre><code class="lang-text">interactor &lt;测试输入文件&gt; &lt;交互器输出文件&gt;
+# argv[1] = 该测试点的 .in 文件（隐藏数据）
+# argv[2] = 交互器输出文件：交互题开启 SPJ 时，交互器要把选手的最终答案写到这里，供 checker 读取</code></pre>
+<p>编译命令等价于（testlib 已内置，无需随题上传）：</p>
+<pre><code class="lang-text">g++ -fno-asm -std=c++14 -O2 -I&lt;题目数据目录&gt; -I&lt;内置 testlib 目录&gt; interactor.cpp -o interactor</code></pre>
+<h3 id="关于-testlib-的注意">关于 testlib 的注意<a class="doc-anchor" href="#关于-testlib-的注意" aria-label="复制本节链接">#</a></h3>
+<ol>
+<li>评测机传入两个参数（<code>&lt;input-file&gt; &lt;output-file&gt;</code>），因此 <strong>testlib 的 <code>registerInteraction(argc, argv)</code> 可以直接使用</strong>（它正好要求这两个参数），调用后 <code>inf</code> 指向测试输入文件、<code>tout</code> 可用于输出；同时它满足 testlib 的收尾检查要求。</li>
+<li>反过来说：<strong>只 <code>#include "testlib.h"</code> 而没有在 <code>main()</code> 第一行调用 register 函数</strong>的程序，退出时会被 testlib 以 <code>FAIL</code>（退出码 3）结束，表现为「判题失败」。想用 testlib 的零散工具（如 <code>setName()</code>）又不 register，请在 <code>main()</code> 开头调用 <code>disableFinalizeGuard();</code>。</li>
+</ol>
+<p>三种写法都可以用：</p>
+<div class="table-wrap"><table><thead><tr><th style="text-align:left">写法</th><th style="text-align:left">说明</th></tr></thead><tbody>
+<tr><td style="text-align:left"><strong>纯标准 C++（最省心）</strong></td><td style="text-align:left">不 <code>#include "testlib.h"</code>，自己用 <code>fopen(argv[1])</code> 读隐藏数据、<code>fopen(argv[2], "w")</code> 写最终答案、用 <code>std::cin</code> / <code>std::cout</code> 与选手对话、用 <code>return 0/1/3</code> 给结论</td></tr>
+<tr><td style="text-align:left"><strong>testlib 注册式</strong></td><td style="text-align:left"><code>registerInteraction(argc, argv);</code> 放在 <code>main()</code> 第一行，之后按 testlib 习惯读写（<code>inf</code> / <code>tout</code> / <code>std::cin</code> 均可）</td></tr>
+<tr><td style="text-align:left"><strong>testlib 工具 + 手动退出码</strong></td><td style="text-align:left">在 <code>main()</code> 开头 <code>disableFinalizeGuard();</code>，之后可以正常使用 <code>setName()</code> 等工具，并自行 <code>return</code> 退出码</td></tr>
+</tbody></table></div>
+<h3 id="最小骨架">最小骨架<a class="doc-anchor" href="#最小骨架" aria-label="复制本节链接">#</a></h3>
+<pre><code class="lang-cpp">// interactor.cpp（交互题 · IO，不开 SPJ 时也能用）
+// 评测机调用：interactor &lt;测试输入文件&gt; &lt;交互器输出文件&gt;
+// 对话：交互器 stdout → 选手 stdin；选手 stdout → 交互器 stdin
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;string&gt;
+#include &lt;iostream&gt;
+
+int main(int argc, char* argv[]) {
+    if (argc &lt; 2) {                                   // 评测机调用方式不对 → 判题失败
+        fprintf(stderr, "interactor: missing input file\n");
+        return 3;
+    }
+    FILE* f = fopen(argv[1], "r");
+    if (!f) { fprintf(stderr, "interactor: cannot open %s\n", argv[1]); return 3; }
+    long long x = 0;                                  // 出题人准备的隐藏数据（即该测试点的 .in）
+    if (fscanf(f, "%lld", &amp;x) != 1) { fclose(f); return 3; }
+    fclose(f);
+    // argv[2]：交互器输出文件。开启 SPJ 时把选手的最终答案写进去，checker 会读它作为 ouf。
+    FILE* out = (argc &gt;= 3) ? fopen(argv[2], "w") : NULL;
+
+    std::string op;
+    long long asked = 0;
+    while (std::cin &gt;&gt; op) {
+        if (op == "?") {                              // 选手提问：? l r
+            long long l = 0, r = 0;
+            if (!(std::cin &gt;&gt; l &gt;&gt; r)) { printf("malformed query\n"); fflush(stdout); return 1; }
+            if (++asked &gt; 100) { printf("too many queries\n"); fflush(stdout); return 1; }
+            std::cout &lt;&lt; ((l &lt;= x &amp;&amp; x &lt;= r) ? "yes" : "no") &lt;&lt; std::endl;   // 回答（endl 自动刷新）
+        } else if (op == "!") {                       // 选手宣告答案：! y
+            long long y = -1;
+            if (!(std::cin &gt;&gt; y)) { printf("malformed answer\n"); fflush(stdout); return 1; }
+            if (out) { fprintf(out, "%lld\n", y); fclose(out); }   // 交给 checker 的最终答案
+            printf("expected %lld, got %lld, queries = %lld\n", x, y, asked);
+            fflush(stdout);                           // 结论 / 原因：会显示在该测试点的判题详情里
+            return y == x ? 0 : 1;                    // 0 = AC，1 = WA
+        } else {
+            printf("unknown command: %s\n", op.c_str());
+            fflush(stdout);
+            return 1;
+        }
+    }
+    // 选手提前退出 / 管道断开：按判题失败处理，避免把「没答完」误判成 AC
+    printf("contestant closed the pipe early\n");
+    fflush(stdout);
+    if (out) fclose(out);
+    return 3;
+}</code></pre>
+<p>要点：</p>
+<ul>
+<li><strong>必须刷新输出缓冲</strong>：<code>std::endl</code>、<code>fflush(stdout)</code>、<code>std::cout.flush()</code> 任一均可，否则选手程序会一直等不到回答而超时；</li>
+<li><strong>交互器的 stdout 既是「给选手的回答」，也是「判题消息」</strong>：评测机把交互器的标准输出接到选手的输入，同时记录下来作为该测试点的消息展示在提交详情中；不想让选手读到的诊断信息请写 <code>stderr</code>（仅当 stdout 为空时，评测机才改用 <code>stderr</code> 作为消息）；</li>
+<li><strong><code>argv[2]</code> 只写选手的最终答案</strong>（开启 SPJ 时 checker 会读它），不要把对话过程写进去；</li>
+<li>不要在交互器里读写别的文件、也不要依赖当前工作目录；</li>
+<li>每个测试点都会用<strong>同一个交互器</strong>重新启动一次，<code>argv[1]</code> 指向该测试点的输入文件。</li>
+</ul>
+<h3 id="开启-special-judge-时">开启 Special Judge 时<a class="doc-anchor" href="#开启-special-judge-时" aria-label="复制本节链接">#</a></h3>
+<p>在题目编辑器顶部勾选「使用 Special Judge（SPJ）」后，判定不再只看交互器退出码，而是由 checker 决定：</p>
+<pre><code class="lang-text">checker &lt;输入文件&gt; &lt;交互器输出文件&gt; &lt;答案文件&gt;        # 即 testlib 的 in / ouf / ans</code></pre>
+<ul>
+<li>交互器负责把选手的最终答案写入 <code>argv[2]</code>（<code>ouf</code>），并在交互正常结束后以退出码 <code>0</code> 退出；</li>
+<li>checker 与普通 SPJ 题完全一样：<code>registerTestlibCmd(argc, argv)</code> 之后用 <code>inf.readXxx()</code> 读输入、<code>ouf.readXxx()</code> 读选手答案、<code>ans.readXxx()</code> 读标准答案；<code>quitf(_ok, ...)</code> 通过、<code>quitf(_wa, ...)</code> 错误、<code>quitp(比例, ...)</code> 部分分；</li>
+<li>checker 退出码约定：<code>0</code>=AC（可输出 0~1 或 1~100 的数值作为部分分比例）、<code>1</code>=WA、<code>2</code>=格式错误（按 WA）、<code>3</code>=checker 异常；</li>
+<li>checker 的编辑 / 上传入口就在开关下方（<code>checker.cpp 内容</code>），与普通题共用同一套，写法见 <a href="usage.html">USAGE.md</a> 的「Special Judge」一节。</li>
+</ul>
+<h3 id="退出码-判定未开启-spj-时">退出码 → 判定（未开启 SPJ 时）<a class="doc-anchor" href="#退出码-判定未开启-spj-时" aria-label="复制本节链接">#</a></h3>
+<div class="table-wrap"><table><thead><tr><th style="text-align:left">交互器退出码</th><th style="text-align:left">判定</th><th style="text-align:left">说明</th></tr></thead><tbody>
+<tr><td style="text-align:left"><code>0</code></td><td style="text-align:left"><strong>AC</strong></td><td style="text-align:left">通过（testlib 的 <code>_ok</code>）</td></tr>
+<tr><td style="text-align:left"><code>1</code></td><td style="text-align:left"><strong>WA</strong></td><td style="text-align:left">答案错误（<code>_wa</code>）</td></tr>
+<tr><td style="text-align:left"><code>2</code></td><td style="text-align:left"><strong>WA（格式错误）</strong></td><td style="text-align:left">按 WA 处理（<code>_pe</code>）</td></tr>
+<tr><td style="text-align:left"><code>3</code></td><td style="text-align:left"><strong>判题失败（JE / SE）</strong></td><td style="text-align:left">交互器自身异常、参数不对、数据缺失（<code>_fail</code>）</td></tr>
+<tr><td style="text-align:left"><code>4</code></td><td style="text-align:left"><strong>WA</strong></td><td style="text-align:left">多余输出等（<code>_dirt</code>）</td></tr>
+<tr><td style="text-align:left"><code>7</code></td><td style="text-align:left"><strong>WA（部分分）</strong></td><td style="text-align:left">交互题按对错计分，<code>_points</code> 会记为 0 分并附上提示</td></tr>
+<tr><td style="text-align:left">其它</td><td style="text-align:left">按选手程序退出码判 RE</td><td style="text-align:left">交互器没有给出结论时（如被拖死、崩溃）</td></tr>
+</tbody></table></div>
+<p>交互器的消息（stdout，其次 stderr）会出现在<strong>提交详情 →「交互器消息」</strong>区块与测试点悬停提示里，配上「交互器退出码 / 程序退出码」，是排查问题最快的方式。</p>
+<hr />
+<h2 id="四交互题-函数式gradercpp-头文件">四、交互题 · 函数式：<code>grader.cpp</code> + 头文件<a class="doc-anchor" href="#四交互题-函数式gradercpp-头文件" aria-label="复制本节链接">#</a></h2>
+<h3 id="评测方式">评测方式<a class="doc-anchor" href="#评测方式" aria-label="复制本节链接">#</a></h3>
+<p>评测机把 grader 与选手代码<strong>一起编译链接</strong>（选手代码里通常只实现一个函数，没有 <code>main()</code>）：</p>
+<pre><code class="lang-text">g++ -fno-asm -std=c++14 -O2 -I&lt;题目数据目录&gt; -I&lt;内置 testlib 目录&gt; grader.cpp &lt;选手源码&gt; -o main</code></pre>
+<p>随后以该测试点的 <code>.in</code> 作为标准输入运行这个可执行文件：</p>
+<ul>
+<li>grader 必须<strong>自带 <code>main()</code></strong>，负责读入隐藏数据、调用选手实现的函数、给出结论；</li>
+<li>头文件（如 <code>problem.h</code>）放在题目数据目录里，grader 与选手代码都用 <code>#include "problem.h"</code> 引用；它声明了选手要实现的函数与 grader 提供的接口函数；</li>
+<li><strong>退出码 <code>0</code> 判 AC</strong>，非 0 判 WA（该测试点的消息取 grader 的 stdout，stdout 为空时用 stderr）；</li>
+<li>如果某个测试点的 <code>.out</code> 非空，则该测试点改为<strong>按输出比对</strong>（先比输出、再看退出码）；</li>
+<li><strong>勾选 Special Judge 时</strong>：程序的<strong>标准输出</strong>作为 <code>ouf</code> 交给 checker，即 <code>checker &lt;输入文件&gt; &lt;grader 的标准输出&gt; &lt;答案文件&gt;</code>；因此 grader 应把选手的最终答案打印到 stdout（调试信息请写到 stderr，或按题目约定打印），再由 checker 判定对错与部分分；</li>
+<li><strong>仅支持 C / C++</strong>：其它语言提交会被直接判为系统错误并提示「函数式交互题仅支持 C/C++ 提交」。</li>
+</ul>
+<h3 id="写法要点可参考种子演示题函数式交互测试题不许偷看">写法要点（可参考种子演示题「函数式交互测试题（不许偷看）」）<a class="doc-anchor" href="#写法要点可参考种子演示题函数式交互测试题不许偷看" aria-label="复制本节链接">#</a></h3>
+<p><code>problem.h</code>（公共接口，选手与 grader 都会包含）：</p>
+<pre><code class="lang-cpp">#ifndef LCZOJ_PROBLEM_H
+#define LCZOJ_PROBLEM_H
+
+long long ask(long long l, long long r);   // grader 提供：询问隐藏值 x 是否满足 l &lt;= x &lt;= r
+void answer(long long y);                  // grader 提供：提交答案 y，调用后程序立刻结束
+
+void run(int n, long long k);              // 选手实现：n 为上界，k 为 ask 次数上限
+
+#endif</code></pre>
+<p><code>grader.cpp</code>（自带 <code>main()</code>）：</p>
+<pre><code class="lang-cpp">#include "problem.h"
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+
+static long long g_x = 0, g_used = 0, g_limit = 0;
+static bool g_answered = false;
+
+long long ask(long long l, long long r) {
+    if (g_answered) exit(1);                       // 调用约定被破坏 → 判 WA
+    if (l &lt; 1 || r &gt; 1000000000LL || l &gt; r) exit(1);
+    if (++g_used &gt; g_limit) exit(1);                // 超过次数上限 → 判 WA
+    return (l &lt;= g_x &amp;&amp; g_x &lt;= r) ? 1 : 0;
+}
+
+void answer(long long y) {
+    g_answered = true;
+    if (y == g_x) { printf("OK: x = %lld, ask = %lld\n", g_x, g_used); exit(0); }   // exit(0) → AC
+    printf("WRONG: expected %lld, got %lld\n", g_x, y);
+    exit(1);                                                                        // 非 0 → WA
+}
+
+int main() {
+    int n = 0; long long k = 0;
+    if (scanf("%d %lld", &amp;n, &amp;k) != 2) return 1;    // 读隐藏参数（来自测试点 .in）
+    g_x = (1 + (long long)n) / 2;                   // 出题人自己决定的隐藏值
+    g_limit = k;
+    run(n, k);                                      // 调用选手实现的函数
+    printf("FAIL: run() returned without answer()\n");
+    return 1;                                       // 选手没给答案 → WA
+}</code></pre>
+<p>要点：</p>
+<ul>
+<li>grader 的输出（stdout，其次 stderr）会作为该测试点的消息显示在提交详情里，用 <code>printf</code> 写清原因即可；</li>
+<li>选手代码里<strong>不要自带 <code>main()</code></strong>，否则链接会因重复定义失败（报「与 grader 一起编译失败」）；</li>
+<li>选手与 grader 的<strong>函数签名必须完全一致</strong>（含命名空间 / 参数类型），建议把签名集中写在头文件里；</li>
+<li>同样不要在代码里读写文件或依赖网络。</li>
+</ul>
+<hr />
+<h2 id="五选手侧注意事项">五、选手侧注意事项<a class="doc-anchor" href="#五选手侧注意事项" aria-label="复制本节链接">#</a></h2>
+<p><strong>IO 交互题</strong></p>
+<ul>
+<li>通过标准输入输出与交互器对话，<strong>不要读写任何文件</strong>（也不要 <code>freopen</code> / 打开 <code>interactor.cpp</code>）；</li>
+<li>每次输出后<strong>刷新缓冲区</strong>（C++：<code>std::endl</code> 或 <code>fflush(stdout)</code>；Python：<code>print(..., flush=True)</code>；Java：<code>System.out.flush()</code>），否则会因等不到回答而超时；</li>
+<li><strong>不要输出多余的调试信息</strong>：交互器的输入流被你的输出塞进无关内容后会判 WA（通常报格式错误或多余输出）；</li>
+<li>注意询问次数 / 输出格式的限制，按题目页「<strong>交互说明</strong>」区块给出的约定实现；</li>
+<li>正常结束时让程序返回 <code>0</code>；不要用崩溃、<code>abort()</code>、未捕获异常等方式退出（会被判为运行时错误）。</li>
+</ul>
+<p><strong>函数式交互题</strong></p>
+<ul>
+<li><strong>只实现题面指定的函数，不要写 <code>main()</code></strong>，也不要自己读标准输入输出；</li>
+<li>用题目给出的头文件（如 <code>#include "problem.h"</code>）获取接口声明，签名必须与题面一致；</li>
+<li><strong>仅支持 C / C++</strong> 提交（语言下拉里只有 C 与 C++）；</li>
+<li>题目页顶部会给出「函数式交互题」提示与「交互说明」。</li>
+</ul>
+<p><strong>本地自测</strong></p>
+<ul>
+<li>IO 交互题：按交互说明自己写一个「对手程序」（读隐藏数据、按约定回答），再把两个进程的标准输入输出<strong>互相接通</strong>（对手的 stdout → 你的 stdin，你的 stdout → 对手的 stdin；Linux / macOS 可用 <code>mkfifo</code> 或一条小脚本，Windows 可写几十行脚本或用评测机同样的方式），也可以先在代码里模拟几组对话验证逻辑；</li>
+<li>函数式交互题：把 <code>grader.cpp</code>、<code>problem.h</code> 与自己的代码放到同一目录，执行 <code>g++ -O2 -std=c++14 -I. grader.cpp my.cpp -o main &amp;&amp; ./main &lt; 1.in</code>，与评测命令一致；</li>
+<li>评测机上编译时已内置 testlib 头文件与题目数据目录的 <code>-I</code>，本地按同样参数编译能最大程度复现评测结果。</li>
+</ul>
+<hr />
+<h2 id="六常见问题">六、常见问题<a class="doc-anchor" href="#六常见问题" aria-label="复制本节链接">#</a></h2>
+<div class="table-wrap"><table><thead><tr><th style="text-align:left">现象</th><th style="text-align:left">原因与处理</th></tr></thead><tbody>
+<tr><td style="text-align:left">所有测试点都提示「题目标记为 IO 交互题，但测试数据目录中缺少 interactor.cpp」</td><td style="text-align:left">只选了题目类型但没保存交互器源码；在「交互题配置」里粘贴 / 上传后点「保存题目信息」</td></tr>
+<tr><td style="text-align:left">所有测试点都是「判题失败（JE）」</td><td style="text-align:left">看判题消息：① 用了 testlib 却没在第一行调用 register 函数 → 换成 <code>registerInteraction(argc, argv);</code>（评测机正好传 <code>&lt;input-file&gt; &lt;output-file&gt;</code> 两个参数）或在 <code>main()</code> 开头加 <code>disableFinalizeGuard();</code>；② 数据文件读不到（检查 <code>argv[1]</code>、交互器是否返回 3 并打印原因）；③ 交互器崩溃或参数判断写错</td></tr>
+<tr><td style="text-align:left"><strong>交互题 + SPJ 全是 WA / 判题失败</strong></td><td style="text-align:left">① <strong>交互器没有把选手的最终答案写入 <code>argv[2]</code></strong>（最常见：只打印到 stdout），checker 读到的 <code>ouf</code> 是空的；② checker 参数顺序按 testlib 的 in / ouf / ans，别把变量读错（<code>inf</code> 读输入、<code>ouf</code> 读交互器输出文件、<code>ans</code> 读标准答案）；③ 交互器应先把答案写完并关闭文件，再以退出码 <code>0</code> 结束；④ checker 自己要 <code>registerTestlibCmd(argc, argv)</code> 并用 <code>quitf</code> 结束</td></tr>
+<tr><td style="text-align:left">本地能过、评测 WA（格式错误 / 多余输出）</td><td style="text-align:left">输出了调试信息（如把中间量打印到了 stdout）→ 那是发给交互器的数据流，必须删掉或改到 stderr（注意 stderr 也不要打印太多）；没有刷新缓冲区导致答案发出后直接退出</td></tr>
+<tr><td style="text-align:left">提交后一直「评测中」/ 超时</td><td style="text-align:left">交互器与选手互相等待：检查双方是否都刷新了缓冲、是否有一方在读不可能的输入；询问次数过多也会超时</td></tr>
+<tr><td style="text-align:left">函数式交互题报「与 grader 一起编译失败」</td><td style="text-align:left">检查是否自带 <code>main()</code>、函数签名是否与题面 / 头文件一致、是否漏了 <code>#include</code>；编译日志会显示在提交详情的编译信息里</td></tr>
+<tr><td style="text-align:left">函数式交互题提交 Python / Java 等语言</td><td style="text-align:left">不支持：函数式交互题需要把 grader 与选手代码一起编译链接，语言下拉里只保留 C 与 C++</td></tr>
+<tr><td style="text-align:left">想要部分分</td><td style="text-align:left">普通交互题按「每个测试点 AC / WA」计分（交互器退出码 <code>7</code> 会记为 0 分并附提示）；需要真正的部分分就<strong>给交互题勾选 SPJ</strong>，让 checker 用 <code>quitp(比例, ...)</code> 打分，或通过子任务分组计分</td></tr>
+</tbody></table></div>
+<hr />
+<h2 id="七相关文档">七、相关文档<a class="doc-anchor" href="#七相关文档" aria-label="复制本节链接">#</a></h2>
+<div class="table-wrap"><table><thead><tr><th style="text-align:left">文档</th><th style="text-align:left">内容</th></tr></thead><tbody>
+<tr><td style="text-align:left"><a href="usage.html">USAGE.md</a></td><td style="text-align:left">使用说明：普通题 / SPJ / 提交答案题 / 测试数据与子任务配置</td></tr>
+<tr><td style="text-align:left"><a href="customization.html">CUSTOMIZATION.md</a></td><td style="text-align:left">自定义指南：外观、权限、积分扩展、Special Judge</td></tr>
+<tr><td style="text-align:left"><a href="deployment.html">DEPLOYMENT.md</a></td><td style="text-align:left">部署详解：部署方式对照、systemd、Nginx、HTTPS、备份</td></tr>
+<tr><td style="text-align:left"><a href="faq.html">FAQ.md</a></td><td style="text-align:left">常见问题解答</td></tr>
+<tr><td style="text-align:left"><a href="changelog.html">CHANGELOG.md</a></td><td style="text-align:left">版本日志</td></tr>
+</tbody></table></div>
+          </div>
+          <div class="doc-foot">
+            <a href="https://github.com/lichenzhen0713/LCZOJ/blob/master/docs/INTERACTIVE.md" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true"><use href="#i-external" /></svg>
+              在 GitHub 编辑此页
+            </a>
+            <span>文档版本 v2.9.1</span>
+          </div>
+          <nav class="doc-pager" aria-label="上一篇 / 下一篇"><a class="pager-prev" href="usage.html"><span><svg class="icon" aria-hidden="true"><use href="#i-arrow-left" /></svg>上一篇</span><strong>使用说明</strong></a><a class="pager-next" href="languages.html"><span>下一篇<svg class="icon" aria-hidden="true"><use href="#i-arrow-right" /></svg></span><strong>评测语言</strong></a></nav>
+        </article>
+      </div>
+
+      <aside class="docs-toc" aria-label="本页目录">
+  <p class="docs-toc-title">本页目录</p>
+  <nav>
+    <a class="lvl-2" href="#一两种交互题">一、两种交互题</a>
+    <a class="lvl-2" href="#二后台配置步骤">二、后台配置步骤</a>
+    <a class="lvl-2" href="#三交互题-iointeractorcpp-写法要点">三、交互题 · IO： interactor.cpp 写法要点</a>
+    <a class="lvl-3" href="#运行方式务必先读">运行方式（务必先读）</a>
+    <a class="lvl-3" href="#关于-testlib-的注意">关于 testlib 的注意</a>
+    <a class="lvl-3" href="#最小骨架">最小骨架</a>
+    <a class="lvl-3" href="#开启-special-judge-时">开启 Special Judge 时</a>
+    <a class="lvl-3" href="#退出码-判定未开启-spj-时">退出码 → 判定（未开启 SPJ 时）</a>
+    <a class="lvl-2" href="#四交互题-函数式gradercpp-头文件">四、交互题 · 函数式： grader.cpp + 头文件</a>
+    <a class="lvl-3" href="#评测方式">评测方式</a>
+    <a class="lvl-3" href="#写法要点可参考种子演示题函数式交互测试题不许偷看">写法要点（可参考种子演示题「函数式交互测试题（不许偷看）」）</a>
+    <a class="lvl-2" href="#五选手侧注意事项">五、选手侧注意事项</a>
+    <a class="lvl-2" href="#六常见问题">六、常见问题</a>
+    <a class="lvl-2" href="#七相关文档">七、相关文档</a>
+  </nav>
+</aside>
+    </div>
+  </main>
+
+  <footer class="docs-footer">
+  <div class="docs-container docs-footer-inner">
+    <span>© 2026 LCZOJ · MIT License · 文档 v2.9.1</span>
+    <nav aria-label="文档页脚">
+      <a href="../index.html">官网首页</a>
+      <a href="index.html">文档中心</a>
+      <a href="http://127.0.0.1/" data-test-site>测试站</a>
+      <a href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://gitee.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">Gitee</a>
+    </nav>
+  </div>
+</footer>
+  <div class="docs-search-modal" id="docs-search" hidden>
+  <div class="docs-search-backdrop" data-docs-search-close></div>
+  <div class="docs-search-panel" role="dialog" aria-modal="true" aria-labelledby="docs-search-title">
+    <h2 class="sr-only" id="docs-search-title">搜索文档</h2>
+    <div class="docs-search-field">
+      <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+      <input id="docs-search-input" type="search" placeholder="搜索文档：部署、Docker、交互题、更新…" autocomplete="off" spellcheck="false" aria-label="搜索文档" />
+      <button class="docs-search-esc" type="button" data-docs-search-close>Esc</button>
+    </div>
+    <div class="docs-search-results" id="docs-search-results"></div>
+    <p class="docs-search-hint">↑ ↓ 选择 · Enter 打开 · Esc 关闭</p>
+  </div>
+</div>
+    <script src="../js/site-config.js" defer></script>
+  <script src="../js/main.js" defer></script>
+  <script src="../js/docs.js" defer></script>
+</body>
+</html>

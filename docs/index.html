@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>文档中心 · LCZOJ 文档</title>
+  <meta name="description" content="LCZOJ 官方文档：部署、Docker、面板、更新、使用说明、交互题、评测语言、自定义、积分、常见问题与版本日志。" />
+  <meta name="theme-color" content="#f6f8fd" id="theme-color" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="文档中心 · LCZOJ 文档" />
+  <meta property="og:description" content="LCZOJ 官方文档：部署、Docker、面板、更新、使用说明、交互题、评测语言、自定义、积分、常见问题与版本日志。" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/docs.css" />
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      var saved = null;
+      try { saved = localStorage.getItem('lczoj-site-theme'); } catch (e) {}
+      var prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = (saved === 'dark' || saved === 'light') ? saved : (prefers ? 'dark' : 'light');
+      d.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.11-.75.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.42.36.79 1.08.79 2.18 0 1.57-.01 2.84-.01 3.23 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="i-gitee" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 9h8v3a4 4 0 0 1-4 4H9"/><path d="M12 12h4"/></symbol>
+  </svg>
+  <header class="site-header" id="top">
+  <div class="container header-inner">
+    <a class="brand" href="../index.html" aria-label="LCZOJ 官网首页">
+      <img src="../assets/logo.svg" alt="" width="30" height="26" />
+      <span class="brand-name">LCZOJ</span>
+      <span class="brand-tag">Docs</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="../index.html#features">功能</a>
+      <a href="../index.html#showcase">界面</a>
+      <a href="../index.html#stack">技术栈</a>
+      <a href="../index.html#start">快速开始</a>
+      <a href="index.html" aria-current="true">文档</a>
+      <a href="http://127.0.0.1/" data-test-site>测试站</a>
+      <a href="../index.html#faq">常见问题</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-ghost btn-sm gh-link" href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">
+        <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg><span>GitHub</span>
+      </a>
+      <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-label="切换深色模式">
+        <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun" /></svg>
+        <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon" /></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="mobile-nav">
+        <svg class="icon icon-menu" aria-hidden="true"><use href="#i-menu" /></svg>
+        <svg class="icon icon-close" aria-hidden="true"><use href="#i-x" /></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <a href="../index.html#features">功能特性</a>
+    <a href="../index.html#showcase">界面预览</a>
+    <a href="../index.html#stack">技术栈</a>
+    <a href="../index.html#start">快速开始</a>
+    <a href="index.html">文档中心</a>
+    <a href="http://127.0.0.1/" data-test-site>测试站</a>
+    <a class="mobile-gh" href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>GitHub 源码</a>
+  </div>
+</header>
+
+  <main id="main" class="docs-page">
+    <div class="docs-container docs-home">
+      <header class="docs-hero">
+        <p class="eyebrow">文档中心</p>
+        <h1>LCZOJ 文档</h1>
+        <p class="docs-hero-sub">从第一次部署到二次开发，把系统的每个部分讲清楚。当前文档与 <strong>v2.9.1</strong> 同步。</p>
+        <button class="docs-searchbig" type="button" data-docs-search>
+          <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+          <span>搜索文档：部署、Docker、交互题、更新…</span>
+          <kbd>/</kbd>
+        </button>
+        <div class="docs-quick">
+          <a href="beginners.html">新手部署</a>
+          <a href="usage.html">使用说明</a>
+          <a href="faq.html">常见问题</a>
+          <a href="changelog.html">版本日志</a>
+        </div>
+      </header>
+
+      <section class="docs-group" aria-labelledby="group-start">
+      <div class="docs-group-head">
+        <h2 id="group-start">入门与部署</h2>
+        <p>从零把 LCZOJ 跑起来：安装、Docker、面板与升级。</p>
+      </div>
+      <div class="docs-cards">
+        <a class="docs-card" href="overview.html">
+          <span class="docs-card-top"><strong>项目总览</strong><svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg></span>
+          <span class="docs-card-desc">项目定位、功能特性、部署方式与完整文档索引。</span>
+        </a>
+        <a class="docs-card" href="beginners.html">
+          <span class="docs-card-top"><strong>新手部署指南</strong><svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg></span>
+          <span class="docs-card-desc">面向零基础用户：一条命令完成部署，并解释每一步在做什么。</span>
+        </a>
+        <a class="docs-card" href="deployment.html">
+          <span class="docs-card-top"><strong>部署指南</strong><svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg></span>
+          <span class="docs-card-desc">systemd、Nginx、HTTPS、防火墙、端口与数据备份。</span>
+        </a>
+        <a class="docs-card" href="docker.html">
+          <span class="docs-card-top"><strong>Docker 部署</strong><svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg></span>
+          <span class="docs-card-desc">一行脚本、数据卷备份恢复、端口调整与常见排错。</span>
+        </a>
+        <a class="docs-card" href="panel.html">
+          <span class="docs-card-top"><strong>宝塔 / 小皮面板</strong><svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg></span>
+          <span class="docs-card-desc">面板环境准备、后台启动、反向代理与 SSL 配置。</span>
+        </a>
+        <a class="docs-card" href="update.html">
+          <span class="docs-card-top"><strong>更新与回滚</strong><svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg></span>
+          <span class="docs-card-desc">后台一键更新、命令行更新、更新源配置与回滚方法。</span>
+        </a>
+      </div>
+    </section>
+    <section class="docs-group" aria-labelledby="group-use">
+      <div class="docs-group-head">
+        <h2 id="group-use">使用与扩展</h2>
+        <p>日常使用、评测配置、积分规则与二次开发。</p>
+      </div>
+      <div class="docs-cards">
+        <a class="docs-card" href="usage.html">
+          <span class="docs-card-top"><strong>使用说明</strong><svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg></span>
+          <span class="docs-card-desc">普通用户与管理员的功能详解：题库、提交、比赛、后台管理。</span>
+        </a>
+        <a class="docs-card" href="interactive.html">
+          <span class="docs-card-top"><strong>交互题配置</strong><svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg></span>
+          <span class="docs-card-desc">IO 交互与函数式交互题的配置步骤、写法要点与判题规则。</span>
+        </a>
+        <a class="docs-card" href="languages.html">
+          <span class="docs-card-top"><strong>评测语言</strong><svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg></span>
+          <span class="docs-card-desc">各语言工具链安装、编译参数与新增语言的方法。</span>
+        </a>
+        <a class="docs-card" href="customization.html">
+          <span class="docs-card-top"><strong>自定义指南</strong><svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg></span>
+          <span class="docs-card-desc">外观、权限、积分扩展与 Special Judge 的自定义。</span>
+        </a>
+        <a class="docs-card" href="points.html">
+          <span class="docs-card-top"><strong>积分系统</strong><svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg></span>
+          <span class="docs-card-desc">基础分、练习分、比赛分、社区分的完整计算规则。</span>
+        </a>
+      </div>
+    </section>
+    <section class="docs-group" aria-labelledby="group-more">
+      <div class="docs-group-head">
+        <h2 id="group-more">其他文档</h2>
+        <p>问题排查、贡献指南与版本记录。</p>
+      </div>
+      <div class="docs-cards">
+        <a class="docs-card" href="faq.html">
+          <span class="docs-card-top"><strong>常见问题</strong><svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg></span>
+          <span class="docs-card-desc">部署、运行、评测与数据相关的常见问题速查。</span>
+        </a>
+        <a class="docs-card" href="contributing.html">
+          <span class="docs-card-top"><strong>贡献指南</strong><svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg></span>
+          <span class="docs-card-desc">开发环境、代码风格、测试与 Pull Request 流程。</span>
+        </a>
+        <a class="docs-card" href="changelog.html">
+          <span class="docs-card-top"><strong>版本日志</strong><svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg></span>
+          <span class="docs-card-desc">v0.1.0 → v2.9.1 的完整版本记录。</span>
+        </a>
+        <a class="docs-card" href="roadmap-2.8.html">
+          <span class="docs-card-top"><strong>2.8 路线图</strong><svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg></span>
+          <span class="docs-card-desc">2.8 版本的落地范围与验收口径（历史存档）。</span>
+        </a>
+      </div>
+    </section>
+
+      <p class="docs-home-note">
+        文档源文件位于仓库 <code>docs/</code> 目录；官网通过
+        <code>node site/build-docs.js</code> 重新生成静态页面。
+      </p>
+    </div>
+  </main>
+
+  <footer class="docs-footer">
+  <div class="docs-container docs-footer-inner">
+    <span>© 2026 LCZOJ · MIT License · 文档 v2.9.1</span>
+    <nav aria-label="文档页脚">
+      <a href="../index.html">官网首页</a>
+      <a href="index.html">文档中心</a>
+      <a href="http://127.0.0.1/" data-test-site>测试站</a>
+      <a href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://gitee.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">Gitee</a>
+    </nav>
+  </div>
+</footer>
+  <div class="docs-search-modal" id="docs-search" hidden>
+  <div class="docs-search-backdrop" data-docs-search-close></div>
+  <div class="docs-search-panel" role="dialog" aria-modal="true" aria-labelledby="docs-search-title">
+    <h2 class="sr-only" id="docs-search-title">搜索文档</h2>
+    <div class="docs-search-field">
+      <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+      <input id="docs-search-input" type="search" placeholder="搜索文档：部署、Docker、交互题、更新…" autocomplete="off" spellcheck="false" aria-label="搜索文档" />
+      <button class="docs-search-esc" type="button" data-docs-search-close>Esc</button>
+    </div>
+    <div class="docs-search-results" id="docs-search-results"></div>
+    <p class="docs-search-hint">↑ ↓ 选择 · Enter 打开 · Esc 关闭</p>
+  </div>
+</div>
+    <script src="../js/site-config.js" defer></script>
+  <script src="../js/main.js" defer></script>
+  <script src="../js/docs.js" defer></script>
+</body>
+</html>

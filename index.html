@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LCZOJ · 零依赖的在线评测系统</title>
+  <meta name="description" content="LCZOJ 是一个零外部依赖的在线评测系统（Online Judge）：基于 Node.js 内置模块实现，无需 npm install、无需编译、无需独立数据库，一条命令即可部署。支持 10 种评测语言、4 种题型、ACM / IOI / OI 赛制与完整社区。" />
+  <meta name="author" content="LCZOJ" />
+  <meta name="theme-color" content="#f6f8fd" id="theme-color" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="LCZOJ · 零依赖的在线评测系统" />
+  <meta property="og:description" content="零 npm 依赖、无需编译、无需独立数据库。一条命令部署属于你自己的在线评测系统。" />
+  <meta property="og:url" content="https://lichenzhen0713.github.io/oj-site/" />
+  <meta property="og:image" content="https://lichenzhen0713.github.io/oj-site/assets/home-light.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="750" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="LCZOJ · 零依赖的在线评测系统" />
+  <meta name="twitter:description" content="零 npm 依赖、无需编译、无需独立数据库。一条命令部署属于你自己的在线评测系统。" />
+  <meta name="twitter:image" content="https://lichenzhen0713.github.io/oj-site/assets/home-light.png" />
+  <link rel="canonical" href="https://lichenzhen0713.github.io/oj-site/" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      var saved = null;
+      try { saved = localStorage.getItem('lczoj-site-theme'); } catch (e) {}
+      var prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = (saved === 'dark' || saved === 'light') ? saved : (prefers ? 'dark' : 'light');
+      d.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.11-.75.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.42.36.79 1.08.79 2.18 0 1.57-.01 2.84-.01 3.23 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-terminal" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4v2a3 3 0 0 0 3 3"/><path d="M17 6h3v2a3 3 0 0 1-3 3"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="7.5" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="7.5" r="1" fill="currentColor" stroke="none"/><circle cx="16.5" cy="10.5" r="1" fill="currentColor" stroke="none"/><path d="M12 22a2 2 0 0 0 0-4 6 6 0 0 1 0-12"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-2.4z"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="7" rx="2"/><rect x="2" y="14" width="20" height="7" rx="2"/><path d="M6 6.5h.01M6 17.5h.01"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3 14h8l-1 8 10-12h-8z"/></symbol>
+    <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+    <symbol id="i-package" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></symbol>
+    <symbol id="i-panel" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></symbol>
+    <symbol id="i-windows" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1"/></symbol>
+  </svg>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="LCZOJ 官网首页">
+        <img src="assets/logo.svg" alt="" width="30" height="26" />
+        <span class="brand-name">LCZOJ</span>
+        <span class="brand-tag">Online Judge</span>
+      </a>
+
+      <nav class="nav" aria-label="主导航">
+        <a href="#features">功能</a>
+        <a href="#showcase">界面</a>
+        <a href="#stack">技术栈</a>
+        <a href="#start">快速开始</a>
+        <a href="docs/index.html">文档</a>
+        <a href="http://127.0.0.1/" data-test-site>测试站</a>
+        <a href="#faq">常见问题</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-ghost btn-sm gh-link" href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">
+          <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>
+          <span>GitHub</span>
+        </a>
+        <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-label="切换深色模式">
+          <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun" /></svg>
+          <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon" /></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="mobile-nav">
+          <svg class="icon icon-menu" aria-hidden="true"><use href="#i-menu" /></svg>
+          <svg class="icon icon-close" aria-hidden="true"><use href="#i-x" /></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-nav" id="mobile-nav" hidden>
+      <a href="#features">功能特性</a>
+      <a href="#showcase">界面预览</a>
+      <a href="#stack">技术栈</a>
+      <a href="#start">快速开始</a>
+      <a href="docs/index.html">文档中心</a>
+      <a href="http://127.0.0.1/" data-test-site>测试站</a>
+      <a href="#faq">常见问题</a>
+      <a class="mobile-gh" href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">
+        <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>GitHub 源码
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ Hero ============ -->
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="container hero-inner">
+        <p class="badge reveal"><span class="badge-dot"></span>v2.9.1<span class="badge-sep">·</span>MIT License<span class="badge-sep">·</span>零运行时依赖</p>
+        <h1 class="reveal" style="--d: 60ms">开箱即用的<br /><span class="grad">在线评测系统</span></h1>
+        <p class="lede reveal" style="--d: 120ms">
+          零 <code>npm install</code>、无需编译、无需独立数据库服务。基于 Node.js 内置模块构建，
+          <span class="nowrap">一条命令</span>部署到你自己的服务器，开箱就是一套完整的 OJ。
+        </p>
+
+        <div class="cta-row reveal" style="--d: 180ms">
+          <a class="btn btn-primary" href="#start">
+            快速开始
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow-down" /></svg>
+          </a>
+          <a class="btn btn-ghost" href="docs/index.html">
+            <svg class="icon" aria-hidden="true"><use href="#i-book" /></svg>
+            文档
+          </a>
+          <a class="btn btn-ghost" href="http://127.0.0.1/" data-test-site>
+            <svg class="icon" aria-hidden="true"><use href="#i-external" /></svg>
+            测试站
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>
+            查看源码
+          </a>
+        </div>
+
+        <div class="install-card reveal" style="--d: 240ms">
+          <div class="install-head">
+            <span class="dot-row" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="install-label">一键部署</span>
+            <span class="install-os">Linux · Ubuntu / Debian / CentOS …</span>
+          </div>
+          <div class="install-cmd">
+            <span class="prompt" aria-hidden="true">$</span>
+            <code id="install-command">curl -fsSL https://raw.githubusercontent.com/lichenzhen0713/LCZOJ/master/bootstrap.sh <span class="nowrap">| sudo bash</span></code>
+            <button class="copy-btn" type="button" data-copy="#install-command" aria-label="复制一键部署命令">
+              <svg class="icon i-copy" aria-hidden="true"><use href="#i-copy" /></svg>
+              <svg class="icon i-done" aria-hidden="true"><use href="#i-check" /></svg>
+            </button>
+          </div>
+          <div class="install-foot">自动安装 Node.js 与评测编译器 · 注册 systemd 开机自启 · 放行端口并输出访问地址</div>
+        </div>
+
+        <ul class="chips reveal" style="--d: 300ms">
+          <li>Node.js ≥ 22.5</li>
+          <li>SQLite 内置</li>
+          <li>Docker / 宝塔 / Windows</li>
+          <li>10 种评测语言</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 数据带 ============ -->
+    <section class="stats" aria-label="项目数据">
+      <div class="container stats-grid">
+        <div class="stat reveal"><strong>0</strong><span>运行时依赖</span></div>
+        <div class="stat reveal" style="--d: 60ms"><strong>10</strong><span>评测语言</span></div>
+        <div class="stat reveal" style="--d: 120ms"><strong>4</strong><span>题目类型</span></div>
+        <div class="stat reveal" style="--d: 180ms"><strong>16</strong><span>路并行判题</span></div>
+        <div class="stat reveal" style="--d: 240ms"><strong>1</strong><span>条命令部署</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 界面预览 ============ -->
+    <section class="section" id="showcase">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">界面预览</p>
+          <h2>一套原生 SPA，亮暗都好看</h2>
+          <p class="section-sub">从题库、比赛到管理后台，全部由原生 JavaScript 实现。8 套主题预设与 12 项自定义配色，夜间模式可定时、可手动切换。</p>
+        </header>
+
+        <div class="showcase reveal">
+          <div class="segmented" role="tablist" aria-label="界面主题">
+            <button class="seg is-active" id="tab-light" type="button" role="tab" aria-selected="true" aria-controls="view-light" data-view="light">
+              <svg class="icon" aria-hidden="true"><use href="#i-sun" /></svg>亮色
+            </button>
+            <button class="seg" id="tab-dark" type="button" role="tab" aria-selected="false" aria-controls="view-dark" data-view="dark">
+              <svg class="icon" aria-hidden="true"><use href="#i-moon" /></svg>暗色
+            </button>
+          </div>
+
+          <div class="browser">
+            <div class="browser-bar" aria-hidden="true">
+              <span class="dot-row"><i></i><i></i><i></i></span>
+              <span class="addr"><svg class="icon"><use href="#i-lock" /></svg>your-oj.example.com</span>
+            </div>
+            <div class="browser-body" id="view-light">
+              <picture>
+                <source srcset="assets/home-light.webp" type="image/webp" />
+                <img src="assets/home-light.png" alt="LCZOJ 首页界面（亮色）" width="1200" height="750" />
+              </picture>
+            </div>
+            <div class="browser-body" id="view-dark" hidden>
+              <picture>
+                <source srcset="assets/home-dark.webp" type="image/webp" />
+                <img src="assets/home-dark.png" alt="LCZOJ 首页界面（暗色）" width="1200" height="750" loading="lazy" />
+              </picture>
+            </div>
+          </div>
+
+          <p class="showcase-foot">首页 · 题库 · 比赛 · 排行榜 · 讨论区 · 管理后台，同一套界面语言</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 功能特性 ============ -->
+    <section class="section section-alt" id="features">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">功能特性</p>
+          <h2>不只是评测，是一整套 OJ</h2>
+          <p class="section-sub">题库、比赛、题解、社区、权限、外观与运维全部内置，不依赖任何第三方服务。</p>
+        </header>
+
+        <div class="features">
+          <article class="feature reveal">
+            <span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-book" /></svg></span>
+            <h3>题库与评测</h3>
+            <p>Markdown + LaTeX 题面、标签与难度筛选、子任务计分、题目级 / 提交级 O2 开关、Special Judge 与大数据包评测。</p>
+          </article>
+
+          <article class="feature reveal" style="--d: 60ms">
+            <span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-layers" /></svg></span>
+            <h3>四种题目类型</h3>
+            <p>普通题、提交答案题、IO 交互题与函数式交互题共用同一套判题开关，交互器与 checker 可按题配置。</p>
+          </article>
+
+          <article class="feature reveal" style="--d: 120ms">
+            <span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-trophy" /></svg></span>
+            <h3>比赛系统</h3>
+            <p>ACM / IOI / OI 三种赛制、报名制、私有赛题、OI 赛中隐藏成绩、Rated 与 Codeforces 风格等级分结算。</p>
+          </article>
+
+          <article class="feature reveal">
+            <span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-message" /></svg></span>
+            <h3>题解与社区</h3>
+            <p>题解与专栏的分类、草稿、审核流、评论 @ 提及与自动分页；讨论区、置顶、积分排行榜与反馈举报。</p>
+          </article>
+
+          <article class="feature reveal" style="--d: 60ms">
+            <span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg></span>
+            <h3>权限与安全</h3>
+            <p>8 项权限位自由组合，scrypt 密码哈希、邮箱验证注册、操作留痕并通知本人，管理员动作可追溯。</p>
+          </article>
+
+          <article class="feature reveal" style="--d: 120ms">
+            <span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-palette" /></svg></span>
+            <h3>网站外观</h3>
+            <p>8 套主题预设与 12 项自定义配色，圆角、字号、字体、页面宽度均可调，修改即时预览、暗色独立配色。</p>
+          </article>
+
+          <article class="feature reveal">
+            <span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-wrench" /></svg></span>
+            <h3>运维省心</h3>
+            <p>后台一键更新、命令行更新、环境自检、评测缓存自动清理、健康检查与数据库备份，升级不动站点数据。</p>
+          </article>
+
+          <article class="feature reveal" style="--d: 60ms">
+            <span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-zap" /></svg></span>
+            <h3>评测性能</h3>
+            <p>并行判题 1~16 路按 CPU 自适应，单测试点约 0.4 秒；重判按题目、比赛或提交区间执行。</p>
+          </article>
+
+          <article class="feature reveal" style="--d: 120ms">
+            <span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-package" /></svg></span>
+            <h3>部署灵活</h3>
+            <p>Linux 一行脚本、Docker 自动安装、宝塔 / 小皮面板、Windows 双击安装，四种方式任选其一。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 技术栈 ============ -->
+    <section class="section" id="stack">
+      <div class="container stack-grid">
+        <div class="stack-copy reveal">
+          <p class="eyebrow">技术栈</p>
+          <h2>为长期运行而设计</h2>
+          <p class="section-sub">后端只使用 Node.js 内置模块，前端是零框架的原生 SPA；数据落在内置 SQLite，备份就是复制一个目录。</p>
+
+          <ul class="checks">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check" /></svg><span><strong>零 npm 依赖</strong>：没有 node_modules，也没有供应链风险。</span></li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check" /></svg><span><strong>node:sqlite 存储</strong>：无需 MySQL / Redis 等外部服务。</span></li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check" /></svg><span><strong>判题沙箱</strong>：并行 1~16 路，按 CPU 自适应，常驻内存采样器。</span></li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check" /></svg><span><strong>原生 SPA</strong>：无构建步骤，改完刷新即生效。</span></li>
+          </ul>
+
+          <div class="stack-chips">
+            <span>node:http</span><span>node:sqlite</span><span>node:crypto</span><span>child_process</span><span>原生 JS</span>
+          </div>
+        </div>
+
+        <div class="tree-card reveal" style="--d: 100ms">
+          <div class="tree-head" aria-hidden="true">
+            <span class="dot-row"><i></i><i></i><i></i></span>
+            <span>项目结构</span>
+          </div>
+          <pre class="tree"><code><span class="t-root">lczoj/</span>
+├─ <span class="t-dir">server.js</span>        HTTP 服务 + 全部 API（0 依赖）
+├─ <span class="t-dir">src/</span>             20+ 后端模块
+│  ├─ <span class="t-file">judge.js</span>      判题引擎 · 1~16 路并行
+│  ├─ <span class="t-file">db.js</span>         node:sqlite 建表 / 迁移
+│  └─ <span class="t-file">…</span>
+├─ <span class="t-dir">public/</span>          原生 SPA（无框架）
+├─ <span class="t-dir">deploy/</span>          systemd / Docker / 面板 / 更新
+└─ <span class="t-dir">data/</span>            SQLite + 测试数据（备份即复制）</code></pre>
+          <div class="tree-foot">
+            <span class="pill-ok"><svg class="icon" aria-hidden="true"><use href="#i-check" /></svg>无需 npm install</span>
+            <span class="pill-ok"><svg class="icon" aria-hidden="true"><use href="#i-check" /></svg>无需编译</span>
+            <span class="pill-ok"><svg class="icon" aria-hidden="true"><use href="#i-check" /></svg>无需外部数据库</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 快速开始 ============ -->
+    <section class="section section-alt" id="start">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">快速开始</p>
+          <h2>三分钟，拥有自己的 OJ</h2>
+          <p class="section-sub">四种部署方式任选其一。初始管理员账号为 <code>admin</code>，密码在首次启动时随机生成。</p>
+        </header>
+
+        <div class="start reveal">
+          <div class="start-tabs" role="tablist" aria-label="部署方式">
+            <button class="start-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="panel-linux" data-panel="panel-linux">
+              <svg class="icon" aria-hidden="true"><use href="#i-terminal" /></svg>Linux
+            </button>
+            <button class="start-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-docker" data-panel="panel-docker">
+              <svg class="icon" aria-hidden="true"><use href="#i-package" /></svg>Docker
+            </button>
+            <button class="start-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-panel" data-panel="panel-panel">
+              <svg class="icon" aria-hidden="true"><use href="#i-panel" /></svg>宝塔 / 小皮
+            </button>
+            <button class="start-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-windows" data-panel="panel-windows">
+              <svg class="icon" aria-hidden="true"><use href="#i-windows" /></svg>Windows
+            </button>
+          </div>
+
+          <div class="start-panels">
+            <div class="start-panel" id="panel-linux" role="tabpanel">
+              <ol class="steps">
+                <li>
+                  <span class="step-num">1</span>
+                  <div class="step-body">
+                    <h3>在服务器执行一键脚本</h3>
+                    <div class="code">
+                      <code id="cmd-linux">curl -fsSL https://raw.githubusercontent.com/lichenzhen0713/LCZOJ/master/bootstrap.sh | sudo bash</code>
+                      <button class="copy-btn" type="button" data-copy="#cmd-linux" aria-label="复制 Linux 部署命令">
+                        <svg class="icon i-copy" aria-hidden="true"><use href="#i-copy" /></svg>
+                        <svg class="icon i-done" aria-hidden="true"><use href="#i-check" /></svg>
+                      </button>
+                    </div>
+                    <p>自动识别发行版，安装 Node.js 与全部评测语言编译器，注册 systemd 开机自启并放行 80 端口。国内网络可改用 Gitee 源：</p>
+                    <div class="code">
+                      <code id="cmd-linux-gitee">curl -fsSL https://gitee.com/lichenzhen0713/LCZOJ/raw/master/bootstrap.sh | sudo bash</code>
+                      <button class="copy-btn" type="button" data-copy="#cmd-linux-gitee" aria-label="复制 Gitee 部署命令">
+                        <svg class="icon i-copy" aria-hidden="true"><use href="#i-copy" /></svg>
+                        <svg class="icon i-done" aria-hidden="true"><use href="#i-check" /></svg>
+                      </button>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <span class="step-num">2</span>
+                  <div class="step-body">
+                    <h3>打开部署完成页</h3>
+                    <p>脚本最后会输出外网访问地址，并直接显示随机生成的 <code>admin</code> 初始密码（同时写入 <code>data/admin-password.txt</code>）。</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="step-num">3</span>
+                  <div class="step-body">
+                    <h3>登录并修改密码</h3>
+                    <p>用 <code>admin</code> 与初始密码登录，进入「编辑资料」修改密码，然后在管理后台确认评测语言与站点设置。</p>
+                  </div>
+                </li>
+              </ol>
+            </div>
+
+            <div class="start-panel" id="panel-docker" role="tabpanel" hidden>
+              <ol class="steps">
+                <li>
+                  <span class="step-num">1</span>
+                  <div class="step-body">
+                    <h3>执行 Docker 一键脚本</h3>
+                    <div class="code">
+                      <code id="cmd-docker">curl -fsSL https://raw.githubusercontent.com/lichenzhen0713/LCZOJ/master/docker-bootstrap.sh | sudo bash</code>
+                      <button class="copy-btn" type="button" data-copy="#cmd-docker" aria-label="复制 Docker 部署命令">
+                        <svg class="icon i-copy" aria-hidden="true"><use href="#i-copy" /></svg>
+                        <svg class="icon i-done" aria-hidden="true"><use href="#i-check" /></svg>
+                      </button>
+                    </div>
+                    <p>未安装 Docker 时会自动安装并设为开机自启，然后构建镜像（镜像内已包含全部评测语言）并启动容器。</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="step-num">2</span>
+                  <div class="step-body">
+                    <h3>数据保存在数据卷</h3>
+                    <p>站点数据位于数据卷 <code>lczoj-data</code>，删除容器不影响数据；迁移时备份该数据卷即可。</p>
+                  </div>
+                </li>
+              </ol>
+            </div>
+
+            <div class="start-panel" id="panel-panel" role="tabpanel" hidden>
+              <ol class="steps">
+                <li>
+                  <span class="step-num">1</span>
+                  <div class="step-body">
+                    <h3>在面板安装 Node.js v24</h3>
+                    <p>宝塔：软件商店 → Node.js 版本管理器或 PM2 管理器；小皮：软件商店或官方安装包。</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="step-num">2</span>
+                  <div class="step-body">
+                    <h3>上传项目并初始化</h3>
+                    <div class="code">
+                      <code id="cmd-panel">cd /www/wwwroot/你的域名 &amp;&amp; node deploy/panel-install.js</code>
+                      <button class="copy-btn" type="button" data-copy="#cmd-panel" aria-label="复制面板初始化命令">
+                        <svg class="icon i-copy" aria-hidden="true"><use href="#i-copy" /></svg>
+                        <svg class="icon i-done" aria-hidden="true"><use href="#i-check" /></svg>
+                      </button>
+                    </div>
+                    <p>脚本会准备环境、后台启动服务（默认 3000 端口）并生成反向代理配置 <code>deploy/panel-nginx.conf</code>。</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="step-num">3</span>
+                  <div class="step-body">
+                    <h3>配置反向代理与 HTTPS</h3>
+                    <p>把配置合并到站点，或使用面板「反向代理」指向 <code>http://127.0.0.1:3000</code>，再申请 SSL 证书。</p>
+                  </div>
+                </li>
+              </ol>
+            </div>
+
+            <div class="start-panel" id="panel-windows" role="tabpanel" hidden>
+              <ol class="steps">
+                <li>
+                  <span class="step-num">1</span>
+                  <div class="step-body">
+                    <h3>复制项目到本机</h3>
+                    <p>例如解压到 <code>D:\LCZOJ</code>，无需安装任何依赖。</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="step-num">2</span>
+                  <div class="step-body">
+                    <h3>双击 install.bat</h3>
+                    <p>脚本自动安装 Node.js 与可选评测语言，启动服务并输出初始管理员密码。</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="step-num">3</span>
+                  <div class="step-body">
+                    <h3>访问 http://localhost</h3>
+                    <p>已安装 Node.js ≥ 22.5 时也可在项目目录直接执行 <code>node server.js</code>，用 <code>set PORT=8080</code> 更换端口。</p>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          <p class="start-note">
+            部署前后都建议执行 <code>node deploy/check-env.js</code> 自检 Node 版本、端口占用、数据目录权限与各语言编译器。
+            完整的参数与排错见 <a href="https://github.com/lichenzhen0713/LCZOJ/blob/master/docs/DEPLOYMENT.md" target="_blank" rel="noopener noreferrer">部署文档</a>。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 常见问题 ============ -->
+    <section class="section" id="faq">
+      <div class="container faq-wrap">
+        <header class="section-head reveal">
+          <p class="eyebrow">常见问题</p>
+          <h2>部署前，你可能想知道</h2>
+        </header>
+
+        <div class="faq reveal">
+          <details class="faq-item">
+            <summary>需要什么运行环境？<svg class="icon" aria-hidden="true"><use href="#i-chevron-down" /></svg></summary>
+            <div class="faq-body"><p>只需要 Node.js ≥ 22.5（推荐 v24）。评测语言对应的编译器按需安装，未安装的语言会标记为「未安装」，不影响站点运行。可用 <code>node deploy/check-env.js</code> 检查。</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>真的不需要 <code>npm install</code> 吗？<svg class="icon" aria-hidden="true"><use href="#i-chevron-down" /></svg></summary>
+            <div class="faq-body"><p>是。后端全部基于 Node.js 内置模块（<code>node:http</code>、<code>node:sqlite</code>、<code>node:crypto</code> 等），前端是原生 JavaScript SPA，没有 <code>node_modules</code>，也不需要构建。</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>数据存在哪里？如何备份？<svg class="icon" aria-hidden="true"><use href="#i-chevron-down" /></svg></summary>
+            <div class="faq-body"><p>全部位于项目下的 <code>data/</code> 目录（SQLite 数据库、题目测试数据、附件与头像）；Docker 部署位于数据卷 <code>lczoj-data</code>。备份就是复制该目录或数据卷。</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>支持哪些评测语言？<svg class="icon" aria-hidden="true"><use href="#i-chevron-down" /></svg></summary>
+            <div class="faq-body"><p>Python 3、JavaScript、C++ 14 / 11 / 98、C（C11）、Java 8+、Pascal、PHP、Go（≥ 1.21）与 Rust，共 10 种。可在 <code>src/config.js</code> 中扩展。</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>如何升级到新版本？<svg class="icon" aria-hidden="true"><use href="#i-chevron-down" /></svg></summary>
+            <div class="faq-body"><p>管理员可在「系统设置 → 版本更新」一键升级（默认先备份数据库），也可以执行 <code>node deploy/update.js</code>。Docker 部署请在宿主机使用 <code>node deploy/update.js --docker</code> 重建容器。</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>可以商用吗？<svg class="icon" aria-hidden="true"><use href="#i-chevron-down" /></svg></summary>
+            <div class="faq-body"><p>可以。项目使用 MIT 许可证，可自由使用、修改与商用，请保留版权声明。完整条款见 <a href="https://github.com/lichenzhen0713/LCZOJ/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">LICENSE</a>。</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 文档 ============ -->
+    <section class="section" id="docs">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">文档</p>
+          <h2>从部署到二次开发，都有文档</h2>
+          <p class="section-sub">官方文档已内置在官网：新手部署、Docker、面板、更新、使用说明、交互题、积分规则与版本日志，支持全文搜索。</p>
+        </header>
+
+        <div class="docs-teaser">
+          <a class="docs-teaser-card reveal" href="docs/beginners.html">
+            <span class="docs-teaser-icon"><svg class="icon" aria-hidden="true"><use href="#i-terminal" /></svg></span>
+            <h3>新手部署指南</h3>
+            <p>一条命令跑起来，并解释每一步在做什么。</p>
+          </a>
+          <a class="docs-teaser-card reveal" style="--d: 60ms" href="docs/usage.html">
+            <span class="docs-teaser-icon"><svg class="icon" aria-hidden="true"><use href="#i-book" /></svg></span>
+            <h3>使用说明</h3>
+            <p>题库、提交、比赛、后台管理的完整功能说明。</p>
+          </a>
+          <a class="docs-teaser-card reveal" style="--d: 120ms" href="docs/interactive.html">
+            <span class="docs-teaser-icon"><svg class="icon" aria-hidden="true"><use href="#i-layers" /></svg></span>
+            <h3>交互题配置</h3>
+            <p>IO 交互与函数式交互题的写法、配置与判题规则。</p>
+          </a>
+          <a class="docs-teaser-card reveal" style="--d: 180ms" href="docs/faq.html">
+            <span class="docs-teaser-icon"><svg class="icon" aria-hidden="true"><use href="#i-message" /></svg></span>
+            <h3>常见问题</h3>
+            <p>部署、运行、评测与数据相关的排查速查。</p>
+          </a>
+        </div>
+
+        <div class="docs-teaser-more reveal">
+          <a class="btn btn-ghost" href="docs/index.html">
+            浏览全部文档
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow-right" /></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-card reveal">
+          <div class="cta-copy">
+            <h2>把第一道题，放到你自己的 OJ 上</h2>
+            <p>三分钟完成部署，自带 5 道演示题；数据完全在你手里。</p>
+          </div>
+          <div class="cta-actions">
+            <a class="btn btn-light" href="#start">快速开始<svg class="icon" aria-hidden="true"><use href="#i-arrow-right" /></svg></a>
+            <a class="btn btn-ghost-light" href="docs/index.html">阅读文档</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#top" aria-label="回到顶部">
+          <img src="assets/logo.svg" alt="" width="30" height="26" />
+          <span class="brand-name">LCZOJ</span>
+        </a>
+        <p>零外部依赖的在线评测系统。基于 Node.js 内置模块实现，拷贝即可运行。</p>
+        <span class="footer-version">v2.9.1 · MIT License</span>
+      </div>
+
+      <nav class="footer-col" aria-label="产品">
+        <h3>产品</h3>
+        <a href="#features">功能特性</a>
+        <a href="#showcase">界面预览</a>
+        <a href="#start">快速开始</a>
+        <a href="http://127.0.0.1/" data-test-site>测试站</a>
+        <a href="docs/changelog.html">版本日志</a>
+      </nav>
+
+      <nav class="footer-col" aria-label="文档">
+        <h3>文档</h3>
+        <a href="docs/index.html">文档中心</a>
+        <a href="docs/deployment.html">部署指南</a>
+        <a href="docs/update.html">更新与回滚</a>
+        <a href="docs/interactive.html">交互题配置</a>
+        <a href="docs/faq.html">常见问题</a>
+      </nav>
+
+      <nav class="footer-col" aria-label="社区">
+        <h3>社区</h3>
+        <a href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://gitee.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">Gitee</a>
+        <a href="https://github.com/lichenzhen0713/LCZOJ/blob/master/docs/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">贡献指南</a>
+        <a href="https://github.com/lichenzhen0713/LCZOJ/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">MIT 许可证</a>
+      </nav>
+    </div>
+
+    <div class="container footer-bottom">
+      <span>© 2026 LCZOJ · 保留版权声明即可自由使用</span>
+      <span class="footer-meta">Made with Node.js · Zero Dependencies</span>
+    </div>
+  </footer>
+
+  <script src="js/site-config.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

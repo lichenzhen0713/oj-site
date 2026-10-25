@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>评测语言 · LCZOJ 文档</title>
+  <meta name="description" content="各语言工具链安装、编译参数与新增语言的方法。" />
+  <meta name="theme-color" content="#f6f8fd" id="theme-color" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="评测语言 · LCZOJ 文档" />
+  <meta property="og:description" content="各语言工具链安装、编译参数与新增语言的方法。" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/docs.css" />
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      var saved = null;
+      try { saved = localStorage.getItem('lczoj-site-theme'); } catch (e) {}
+      var prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = (saved === 'dark' || saved === 'light') ? saved : (prefers ? 'dark' : 'light');
+      d.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.11-.75.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.42.36.79 1.08.79 2.18 0 1.57-.01 2.84-.01 3.23 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="i-gitee" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 9h8v3a4 4 0 0 1-4 4H9"/><path d="M12 12h4"/></symbol>
+  </svg>
+  <header class="site-header" id="top">
+  <div class="container header-inner">
+    <a class="brand" href="../index.html" aria-label="LCZOJ 官网首页">
+      <img src="../assets/logo.svg" alt="" width="30" height="26" />
+      <span class="brand-name">LCZOJ</span>
+      <span class="brand-tag">Docs</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="../index.html#features">功能</a>
+      <a href="../index.html#showcase">界面</a>
+      <a href="../index.html#stack">技术栈</a>
+      <a href="../index.html#start">快速开始</a>
+      <a href="index.html" aria-current="true">文档</a>
+      <a href="http://127.0.0.1/" data-test-site>测试站</a>
+      <a href="../index.html#faq">常见问题</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-ghost btn-sm gh-link" href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">
+        <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg><span>GitHub</span>
+      </a>
+      <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-label="切换深色模式">
+        <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun" /></svg>
+        <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon" /></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="mobile-nav">
+        <svg class="icon icon-menu" aria-hidden="true"><use href="#i-menu" /></svg>
+        <svg class="icon icon-close" aria-hidden="true"><use href="#i-x" /></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <a href="../index.html#features">功能特性</a>
+    <a href="../index.html#showcase">界面预览</a>
+    <a href="../index.html#stack">技术栈</a>
+    <a href="../index.html#start">快速开始</a>
+    <a href="index.html">文档中心</a>
+    <a href="http://127.0.0.1/" data-test-site>测试站</a>
+    <a class="mobile-gh" href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>GitHub 源码</a>
+  </div>
+</header>
+
+  <main id="main" class="docs-page">
+    <div class="docs-container docs-layout">
+      <aside class="docs-side">
+        <button class="docs-searchbtn" type="button" data-docs-search>
+          <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+          搜索文档
+          <kbd>/</kbd>
+        </button>
+        <nav class="docs-nav" aria-label="文档目录">
+    <p class="docs-nav-group">入门与部署</p>
+        <a href="overview.html">项目总览</a>
+        <a href="beginners.html">新手部署指南</a>
+        <a href="deployment.html">部署指南</a>
+        <a href="docker.html">Docker 部署</a>
+        <a href="panel.html">宝塔 / 小皮面板</a>
+        <a href="update.html">更新与回滚</a>
+    <p class="docs-nav-group">使用与扩展</p>
+        <a href="usage.html">使用说明</a>
+        <a href="interactive.html">交互题配置</a>
+        <a href="languages.html" aria-current="page">评测语言</a>
+        <a href="customization.html">自定义指南</a>
+        <a href="points.html">积分系统</a>
+    <p class="docs-nav-group">其他文档</p>
+        <a href="faq.html">常见问题</a>
+        <a href="contributing.html">贡献指南</a>
+        <a href="changelog.html">版本日志</a>
+        <a href="roadmap-2.8.html">2.8 路线图</a>
+  </nav>
+        <div class="docs-side-meta">
+          <a href="https://github.com/lichenzhen0713/LCZOJ/blob/master/docs/LANGUAGES.md" target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-external" /></svg>
+            在 GitHub 查看此页
+          </a>
+          <span>文档版本 v2.9.1</span>
+        </div>
+      </aside>
+
+      <details class="docs-drawer">
+        <summary>文档目录</summary>
+        <div class="docs-drawer-body">
+          <button class="docs-searchbtn" type="button" data-docs-search>
+            <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+            搜索文档
+          </button>
+          <nav class="docs-nav" aria-label="文档目录">
+    <p class="docs-nav-group">入门与部署</p>
+        <a href="overview.html">项目总览</a>
+        <a href="beginners.html">新手部署指南</a>
+        <a href="deployment.html">部署指南</a>
+        <a href="docker.html">Docker 部署</a>
+        <a href="panel.html">宝塔 / 小皮面板</a>
+        <a href="update.html">更新与回滚</a>
+    <p class="docs-nav-group">使用与扩展</p>
+        <a href="usage.html">使用说明</a>
+        <a href="interactive.html">交互题配置</a>
+        <a href="languages.html" aria-current="page">评测语言</a>
+        <a href="customization.html">自定义指南</a>
+        <a href="points.html">积分系统</a>
+    <p class="docs-nav-group">其他文档</p>
+        <a href="faq.html">常见问题</a>
+        <a href="contributing.html">贡献指南</a>
+        <a href="changelog.html">版本日志</a>
+        <a href="roadmap-2.8.html">2.8 路线图</a>
+  </nav>
+        </div>
+      </details>
+
+      <div class="docs-main">
+        <nav class="docs-crumb" aria-label="面包屑">
+          <a href="index.html">文档</a>
+          <svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg>
+          <span>使用与扩展</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg>
+          <strong>评测语言</strong>
+        </nav>
+
+        <article class="doc">
+          <h1>评测语言</h1>
+          <div class="doc-body">
+<p>OJ 的评测语言定义在 <code>src/config.js</code>，工具链自动探测、未安装自动禁用。本文说明如何配置、安装与新增语言。</p>
+<h2 id="1-语言总览">1. 语言总览<a class="doc-anchor" href="#1-语言总览" aria-label="复制本节链接">#</a></h2>
+<div class="table-wrap"><table><thead><tr><th style="text-align:left">key</th><th style="text-align:left">语言</th><th style="text-align:left">工具链命令</th><th style="text-align:left">是否编译</th></tr></thead><tbody>
+<tr><td style="text-align:left"><code>python</code></td><td style="text-align:left">Python 3</td><td style="text-align:left"><code>python</code> / <code>python3</code></td><td style="text-align:left">否</td></tr>
+<tr><td style="text-align:left"><code>javascript</code></td><td style="text-align:left">JavaScript (Node.js)</td><td style="text-align:left"><code>node</code></td><td style="text-align:left">否</td></tr>
+<tr><td style="text-align:left"><code>cpp</code></td><td style="text-align:left">C++ 14</td><td style="text-align:left"><code>g++</code></td><td style="text-align:left">是</td></tr>
+<tr><td style="text-align:left"><code>cpp11</code></td><td style="text-align:left">C++ 11</td><td style="text-align:left"><code>g++</code></td><td style="text-align:left">是</td></tr>
+<tr><td style="text-align:left"><code>cpp98</code></td><td style="text-align:left">C++ 98</td><td style="text-align:left"><code>g++</code></td><td style="text-align:left">是</td></tr>
+<tr><td style="text-align:left"><code>c</code></td><td style="text-align:left">C 11</td><td style="text-align:left"><code>gcc</code></td><td style="text-align:left">是</td></tr>
+<tr><td style="text-align:left"><code>java</code></td><td style="text-align:left">Java 21</td><td style="text-align:left"><code>javac</code> + <code>java</code></td><td style="text-align:left">是</td></tr>
+<tr><td style="text-align:left"><code>pascal</code></td><td style="text-align:left">Pascal (Free Pascal)</td><td style="text-align:left"><code>fpc</code></td><td style="text-align:left">是</td></tr>
+<tr><td style="text-align:left"><code>php</code></td><td style="text-align:left">PHP</td><td style="text-align:left"><code>php</code></td><td style="text-align:left">否</td></tr>
+<tr><td style="text-align:left"><code>go</code></td><td style="text-align:left">Go</td><td style="text-align:left"><code>go</code></td><td style="text-align:left">是</td></tr>
+<tr><td style="text-align:left"><code>rust</code></td><td style="text-align:left">Rust</td><td style="text-align:left"><code>rustc</code></td><td style="text-align:left">是</td></tr>
+</tbody></table></div>
+<h2 id="2-各平台安装工具链">2. 各平台安装工具链<a class="doc-anchor" href="#2-各平台安装工具链" aria-label="复制本节链接">#</a></h2>
+<h3 id="debian-ubuntu">Debian / Ubuntu<a class="doc-anchor" href="#debian-ubuntu" aria-label="复制本节链接">#</a></h3>
+<pre><code class="lang-bash">sudo apt-get install -y python3 gcc g++ fp-compiler php-cli golang-go rustc cargo openjdk-21-jdk-headless
+# 若发行版无 openjdk-21 包，可回退：sudo apt-get install -y default-jdk-headless</code></pre>
+<h3 id="fedora-rhel-centos-stream">Fedora / RHEL / CentOS Stream<a class="doc-anchor" href="#fedora-rhel-centos-stream" aria-label="复制本节链接">#</a></h3>
+<pre><code class="lang-bash">sudo dnf install -y python3 gcc gcc-c++ fpc php-cli golang rust cargo java-21-openjdk-devel
+# 若仓库无 java-21 包（如 RHEL 8），可回退：sudo dnf install -y java-17-openjdk-devel</code></pre>
+<blockquote>
+<p>CentOS 7（yum）没有 rustc 包；Java 使用 <code>java-1.8.0-openjdk-devel</code>。</p>
+</blockquote>
+<h3 id="arch-manjaro">Arch / Manjaro<a class="doc-anchor" href="#arch-manjaro" aria-label="复制本节链接">#</a></h3>
+<pre><code class="lang-bash">sudo pacman -S --noconfirm python gcc fpc php go rust java-openjdk</code></pre>
+<h3 id="alpine">Alpine<a class="doc-anchor" href="#alpine" aria-label="复制本节链接">#</a></h3>
+<pre><code class="lang-bash">sudo apk add --no-cache python3 gcc g++ fpc php-cli go rust cargo openjdk17-jdk</code></pre>
+<h3 id="opensuse">openSUSE<a class="doc-anchor" href="#opensuse" aria-label="复制本节链接">#</a></h3>
+<pre><code class="lang-bash">sudo zypper install -y python3 gcc gcc-c++ fpc php-cli go rust java-17-openjdk-devel</code></pre>
+<h3 id="windows">Windows<a class="doc-anchor" href="#windows" aria-label="复制本节链接">#</a></h3>
+<div class="table-wrap"><table><thead><tr><th style="text-align:left">语言</th><th style="text-align:left">安装建议</th></tr></thead><tbody>
+<tr><td style="text-align:left">Python</td><td style="text-align:left">python.org 安装包（勾选 Add to PATH）</td></tr>
+<tr><td style="text-align:left">C/C++</td><td style="text-align:left">Dev-Cpp（自带 MinGW64）或 MSYS2 / WSL</td></tr>
+<tr><td style="text-align:left">Java</td><td style="text-align:left">OpenJDK（如 Temurin / Microsoft OpenJDK），配置 <code>JAVA_HOME</code> 与 PATH</td></tr>
+<tr><td style="text-align:left">Pascal</td><td style="text-align:left">Free Pascal 官方安装包</td></tr>
+<tr><td style="text-align:left">PHP</td><td style="text-align:left">winget：<code>winget install PHP.PHP.8.4</code></td></tr>
+<tr><td style="text-align:left">Go</td><td style="text-align:left">官方安装包 / <code>winget install GoLang.Go</code>，加入 PATH</td></tr>
+<tr><td style="text-align:left">Rust</td><td style="text-align:left"><code>winget install Rustlang.Rustup</code>，再 <code>rustup default stable-x86_64-pc-windows-gnu</code>；系统会自动使用 rustc 内置 <code>rust-lld</code> 链接，无需安装 VS / MinGW</td></tr>
+</tbody></table></div>
+<blockquote>
+<p>Windows 上系统会额外探测 <code>C:\Program Files (x86)\Dev-Cpp\MinGW64\bin</code> 下的 gcc/g++，以及 OpenJDK（<code>C:\Program Files\Microsoft\jdk-17*</code>）、Free Pascal（<code>C:\FPC\3.2.2\bin\*</code>）、Cargo/Rustup（<code>C:\Users\&lt;用户名&gt;\.cargo\bin</code>）等常见路径。</p>
+<p>运行 <code>install.bat</code> 会自动通过 winget 安装全部评测语言编译器（已安装的跳过）。</p>
+</blockquote>
+<h2 id="3-工具链探测机制">3. 工具链探测机制<a class="doc-anchor" href="#3-工具链探测机制" aria-label="复制本节链接">#</a></h2>
+<p>判题时（<code>src/judge.js</code>）按 <code>TOOLCHAIN_CANDIDATES</code> 中声明的顺序寻找可执行文件：</p>
+<pre><code class="lang-js">const TOOLCHAIN_CANDIDATES = {
+  'python': ['python', 'python3', 'py'],
+  'g++': ['g++', 'C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\bin\\g++.exe'],
+  'fpc': ['fpc', '/usr/bin/fpc', '/usr/local/bin/fpc'],
+  // ...
+};</code></pre>
+<ul>
+<li>找到第一个可用项即使用；</li>
+<li>全部找不到则该语言标记为「未安装」，评测面板中不可选；</li>
+<li>将编译器放在 PATH 中即可被自动发现，无需改代码。</li>
+</ul>
+<h2 id="4-新增-修改语言">4. 新增 / 修改语言<a class="doc-anchor" href="#4-新增-修改语言" aria-label="复制本节链接">#</a></h2>
+<p>在 <code>src/config.js</code> 的 <code>LANGUAGES</code> 中新增一条定义：</p>
+<pre><code class="lang-js">kotlin: {
+  key: 'kotlin',
+  name: 'Kotlin',
+  ext: 'kt',
+  compiled: true,
+  compile: '{tool} {src} -include-runtime -d {exe}',
+  run: 'java -jar {exe}',
+  highlight: 'kotlin',
+  toolName: 'kotlinc',
+},</code></pre>
+<p>命令模板变量：</p>
+<div class="table-wrap"><table><thead><tr><th style="text-align:left">变量</th><th style="text-align:left">含义</th></tr></thead><tbody>
+<tr><td style="text-align:left"><code>{tool}</code></td><td style="text-align:left">编译/运行工具路径（由探测结果决定）</td></tr>
+<tr><td style="text-align:left"><code>{runTool}</code></td><td style="text-align:left">运行工具路径（如 Java 的 <code>java</code>）</td></tr>
+<tr><td style="text-align:left"><code>{src}</code></td><td style="text-align:left">源码文件完整路径</td></tr>
+<tr><td style="text-align:left"><code>{exe}</code></td><td style="text-align:left">可执行文件路径（编译语言）</td></tr>
+<tr><td style="text-align:left"><code>{dir}</code></td><td style="text-align:left">判题工作目录</td></tr>
+</tbody></table></div>
+<p>同时把工具链加入 <code>TOOLCHAIN_CANDIDATES</code>：</p>
+<pre><code class="lang-js">'kotlinc': ['kotlinc', '/usr/bin/kotlinc'],</code></pre>
+<p>重启服务即可在评测面板中选择新语言。</p>
+<h2 id="5-判题限制">5. 判题限制<a class="doc-anchor" href="#5-判题限制" aria-label="复制本节链接">#</a></h2>
+<p><code>src/config.js</code> 的 <code>DEFAULTS</code> 中可调整全局限制：</p>
+<pre><code class="lang-js">timeLimitMs: 1000,          // 默认时间限制（题目可覆盖）
+memoryLimitMb: 256,         // 默认内存限制（题目可覆盖）
+outputLimitBytes: 16MB,     // 单测试点输出上限
+judgeTimeoutMs: 30s,        // 判题整体兜底超时
+maxConcurrentJudges: 2,     // 并行判题数</code></pre>
+<blockquote>
+<p>注意：</p>
+<p>- C/C++ 使用 <code>-static</code> 静态链接；</p>
+<p>- Java 默认主类为 <code>Main</code>（公共类必须命名为 <code>Main</code>，源文件固定为 <code>Main.java</code>）；</p>
+<p>- Rust 在 Windows 使用内置 <code>rust-lld</code> 链接（无需 VS / MinGW），Linux 使用系统默认链接器；</p>
+<p>- Go 使用共享 GOCACHE 缓存（<code>data/gocache</code>），模块模式编译、禁止联网下载依赖（仅标准库）；编译超时上限 60 秒。</p>
+<p>- Linux 下若 Java / Go / Rust 曾报编译错误，请确认：Java 类名是否为 <code>Main</code>、<code>data/</code> 目录是否可写（Go 缓存）、rustc 是否可用系统链接器。</p>
+</blockquote>
+          </div>
+          <div class="doc-foot">
+            <a href="https://github.com/lichenzhen0713/LCZOJ/blob/master/docs/LANGUAGES.md" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true"><use href="#i-external" /></svg>
+              在 GitHub 编辑此页
+            </a>
+            <span>文档版本 v2.9.1</span>
+          </div>
+          <nav class="doc-pager" aria-label="上一篇 / 下一篇"><a class="pager-prev" href="interactive.html"><span><svg class="icon" aria-hidden="true"><use href="#i-arrow-left" /></svg>上一篇</span><strong>交互题配置</strong></a><a class="pager-next" href="customization.html"><span>下一篇<svg class="icon" aria-hidden="true"><use href="#i-arrow-right" /></svg></span><strong>自定义指南</strong></a></nav>
+        </article>
+      </div>
+
+      <aside class="docs-toc" aria-label="本页目录">
+  <p class="docs-toc-title">本页目录</p>
+  <nav>
+    <a class="lvl-2" href="#1-语言总览">1. 语言总览</a>
+    <a class="lvl-2" href="#2-各平台安装工具链">2. 各平台安装工具链</a>
+    <a class="lvl-3" href="#debian-ubuntu">Debian / Ubuntu</a>
+    <a class="lvl-3" href="#fedora-rhel-centos-stream">Fedora / RHEL / CentOS Stream</a>
+    <a class="lvl-3" href="#arch-manjaro">Arch / Manjaro</a>
+    <a class="lvl-3" href="#alpine">Alpine</a>
+    <a class="lvl-3" href="#opensuse">openSUSE</a>
+    <a class="lvl-3" href="#windows">Windows</a>
+    <a class="lvl-2" href="#3-工具链探测机制">3. 工具链探测机制</a>
+    <a class="lvl-2" href="#4-新增-修改语言">4. 新增 / 修改语言</a>
+    <a class="lvl-2" href="#5-判题限制">5. 判题限制</a>
+  </nav>
+</aside>
+    </div>
+  </main>
+
+  <footer class="docs-footer">
+  <div class="docs-container docs-footer-inner">
+    <span>© 2026 LCZOJ · MIT License · 文档 v2.9.1</span>
+    <nav aria-label="文档页脚">
+      <a href="../index.html">官网首页</a>
+      <a href="index.html">文档中心</a>
+      <a href="http://127.0.0.1/" data-test-site>测试站</a>
+      <a href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://gitee.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">Gitee</a>
+    </nav>
+  </div>
+</footer>
+  <div class="docs-search-modal" id="docs-search" hidden>
+  <div class="docs-search-backdrop" data-docs-search-close></div>
+  <div class="docs-search-panel" role="dialog" aria-modal="true" aria-labelledby="docs-search-title">
+    <h2 class="sr-only" id="docs-search-title">搜索文档</h2>
+    <div class="docs-search-field">
+      <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+      <input id="docs-search-input" type="search" placeholder="搜索文档：部署、Docker、交互题、更新…" autocomplete="off" spellcheck="false" aria-label="搜索文档" />
+      <button class="docs-search-esc" type="button" data-docs-search-close>Esc</button>
+    </div>
+    <div class="docs-search-results" id="docs-search-results"></div>
+    <p class="docs-search-hint">↑ ↓ 选择 · Enter 打开 · Esc 关闭</p>
+  </div>
+</div>
+    <script src="../js/site-config.js" defer></script>
+  <script src="../js/main.js" defer></script>
+  <script src="../js/docs.js" defer></script>
+</body>
+</html>

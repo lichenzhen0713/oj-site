@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>新手部署指南 · LCZOJ 文档</title>
+  <meta name="description" content="面向零基础用户：一条命令完成部署，并解释每一步在做什么。" />
+  <meta name="theme-color" content="#f6f8fd" id="theme-color" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="新手部署指南 · LCZOJ 文档" />
+  <meta property="og:description" content="面向零基础用户：一条命令完成部署，并解释每一步在做什么。" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/docs.css" />
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      var saved = null;
+      try { saved = localStorage.getItem('lczoj-site-theme'); } catch (e) {}
+      var prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = (saved === 'dark' || saved === 'light') ? saved : (prefers ? 'dark' : 'light');
+      d.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.11-.75.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.42.36.79 1.08.79 2.18 0 1.57-.01 2.84-.01 3.23 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="i-gitee" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 9h8v3a4 4 0 0 1-4 4H9"/><path d="M12 12h4"/></symbol>
+  </svg>
+  <header class="site-header" id="top">
+  <div class="container header-inner">
+    <a class="brand" href="../index.html" aria-label="LCZOJ 官网首页">
+      <img src="../assets/logo.svg" alt="" width="30" height="26" />
+      <span class="brand-name">LCZOJ</span>
+      <span class="brand-tag">Docs</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="../index.html#features">功能</a>
+      <a href="../index.html#showcase">界面</a>
+      <a href="../index.html#stack">技术栈</a>
+      <a href="../index.html#start">快速开始</a>
+      <a href="index.html" aria-current="true">文档</a>
+      <a href="http://127.0.0.1/" data-test-site>测试站</a>
+      <a href="../index.html#faq">常见问题</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-ghost btn-sm gh-link" href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">
+        <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg><span>GitHub</span>
+      </a>
+      <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-label="切换深色模式">
+        <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun" /></svg>
+        <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon" /></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="mobile-nav">
+        <svg class="icon icon-menu" aria-hidden="true"><use href="#i-menu" /></svg>
+        <svg class="icon icon-close" aria-hidden="true"><use href="#i-x" /></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <a href="../index.html#features">功能特性</a>
+    <a href="../index.html#showcase">界面预览</a>
+    <a href="../index.html#stack">技术栈</a>
+    <a href="../index.html#start">快速开始</a>
+    <a href="index.html">文档中心</a>
+    <a href="http://127.0.0.1/" data-test-site>测试站</a>
+    <a class="mobile-gh" href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>GitHub 源码</a>
+  </div>
+</header>
+
+  <main id="main" class="docs-page">
+    <div class="docs-container docs-layout">
+      <aside class="docs-side">
+        <button class="docs-searchbtn" type="button" data-docs-search>
+          <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+          搜索文档
+          <kbd>/</kbd>
+        </button>
+        <nav class="docs-nav" aria-label="文档目录">
+    <p class="docs-nav-group">入门与部署</p>
+        <a href="overview.html">项目总览</a>
+        <a href="beginners.html" aria-current="page">新手部署指南</a>
+        <a href="deployment.html">部署指南</a>
+        <a href="docker.html">Docker 部署</a>
+        <a href="panel.html">宝塔 / 小皮面板</a>
+        <a href="update.html">更新与回滚</a>
+    <p class="docs-nav-group">使用与扩展</p>
+        <a href="usage.html">使用说明</a>
+        <a href="interactive.html">交互题配置</a>
+        <a href="languages.html">评测语言</a>
+        <a href="customization.html">自定义指南</a>
+        <a href="points.html">积分系统</a>
+    <p class="docs-nav-group">其他文档</p>
+        <a href="faq.html">常见问题</a>
+        <a href="contributing.html">贡献指南</a>
+        <a href="changelog.html">版本日志</a>
+        <a href="roadmap-2.8.html">2.8 路线图</a>
+  </nav>
+        <div class="docs-side-meta">
+          <a href="https://github.com/lichenzhen0713/LCZOJ/blob/master/docs/BEGINNERS.md" target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-external" /></svg>
+            在 GitHub 查看此页
+          </a>
+          <span>文档版本 v2.9.1</span>
+        </div>
+      </aside>
+
+      <details class="docs-drawer">
+        <summary>文档目录</summary>
+        <div class="docs-drawer-body">
+          <button class="docs-searchbtn" type="button" data-docs-search>
+            <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+            搜索文档
+          </button>
+          <nav class="docs-nav" aria-label="文档目录">
+    <p class="docs-nav-group">入门与部署</p>
+        <a href="overview.html">项目总览</a>
+        <a href="beginners.html" aria-current="page">新手部署指南</a>
+        <a href="deployment.html">部署指南</a>
+        <a href="docker.html">Docker 部署</a>
+        <a href="panel.html">宝塔 / 小皮面板</a>
+        <a href="update.html">更新与回滚</a>
+    <p class="docs-nav-group">使用与扩展</p>
+        <a href="usage.html">使用说明</a>
+        <a href="interactive.html">交互题配置</a>
+        <a href="languages.html">评测语言</a>
+        <a href="customization.html">自定义指南</a>
+        <a href="points.html">积分系统</a>
+    <p class="docs-nav-group">其他文档</p>
+        <a href="faq.html">常见问题</a>
+        <a href="contributing.html">贡献指南</a>
+        <a href="changelog.html">版本日志</a>
+        <a href="roadmap-2.8.html">2.8 路线图</a>
+  </nav>
+        </div>
+      </details>
+
+      <div class="docs-main">
+        <nav class="docs-crumb" aria-label="面包屑">
+          <a href="index.html">文档</a>
+          <svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg>
+          <span>入门与部署</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-chevron-right" /></svg>
+          <strong>新手部署指南</strong>
+        </nav>
+
+        <article class="doc">
+          <h1>新手部署指南</h1>
+          <div class="doc-body">
+<p>本指南面向<strong>完全没接触过服务器 / 编程环境</strong>的小白。你只需要会「复制粘贴一条命令」和「打开浏览器」。</p>
+<p>LCZOJ 是一个<strong>在线做题网站</strong>（Online Judge），类似洛谷 / Codeforces。部署好后你可以：自己出题让别人提交评测、举办比赛（ACM/OI/IOI）、拥有讨论区、题解专栏、积分等级分、反馈举报等完整功能。<strong>不需要装数据库、不需要 npm install</strong>。</p>
+<hr />
+<h2 id="一最快方式一条命令部署到服务器推荐">一、最快方式：一条命令部署到服务器（推荐）<a class="doc-anchor" href="#一最快方式一条命令部署到服务器推荐" aria-label="复制本节链接">#</a></h2>
+<p>项目已开源在 <strong>GitHub</strong> 与 <strong>Gitee（码云）</strong>，两个源任选其一。在<strong>全新 Linux 服务器</strong>（云服务器 / VPS）上，复制下面<strong>一条命令</strong>回车即可：</p>
+<pre><code class="lang-bash"># GitHub 源
+curl -fsSL https://raw.githubusercontent.com/lichenzhen0713/LCZOJ/master/bootstrap.sh | sudo bash
+
+# Gitee 源（国内网络环境更快）
+curl -fsSL https://gitee.com/lichenzhen0713/LCZOJ/raw/master/bootstrap.sh | sudo bash</code></pre>
+<p>这条命令会自动完成（通常 3~10 分钟）：</p>
+<ol>
+<li>自动识别你的系统（Ubuntu / CentOS / 其它发行版）；</li>
+<li>从 GitHub（失败自动改用 Gitee）下载 LCZOJ 到 <code>/opt/lczoj</code>；</li>
+<li>安装 Node.js 24 与全部评测语言编译器（C/C++、Python、Pascal、PHP、Go、Rust、Java）；</li>
+<li>注册成系统服务（systemd），<strong>开机自启</strong>；</li>
+<li>放行防火墙 <strong>80 端口</strong>；</li>
+<li>启动网站，并自动显示<strong>外网访问地址</strong>（如 <code>http://123.45.67.89</code>）。</li>
+</ol>
+<p><strong>部署完成后</strong>：浏览器打开脚本输出的地址 → 用 <strong>admin</strong> 登录，初始密码是<strong>首次启动时随机生成的</strong>，<strong>脚本的「部署完成」页面会直接显示它</strong>（也写在数据目录的 <code>admin-password.txt</code>，启动日志里同样有），请尽快修改密码。</p>
+<hr />
+<h2 id="二项目已在服务器上其它方式">二、项目已在服务器上（其它方式）<a class="doc-anchor" href="#二项目已在服务器上其它方式" aria-label="复制本节链接">#</a></h2>
+<p>把整个 LCZOJ 文件夹上传到服务器后（例如 <code>/opt/lczoj</code>）：</p>
+<pre><code class="lang-bash"># Ubuntu / Debian
+cd /opt/lczoj &amp;&amp; sudo bash install-ubuntu.sh
+
+# CentOS / RHEL（7/8/9）
+cd /opt/lczoj &amp;&amp; sudo bash install-centos.sh
+
+# 其它发行版（Fedora / Arch / Alpine / openSUSE 等）
+cd /opt/lczoj &amp;&amp; sudo ./install.sh --daemon</code></pre>
+<hr />
+<h2 id="三windows-部署双击完成">三、Windows 部署（双击完成）<a class="doc-anchor" href="#三windows-部署双击完成" aria-label="复制本节链接">#</a></h2>
+<ol>
+<li>把整个 LCZOJ 文件夹拷到电脑上（路径不要有中文和空格，如 <code>D:\LCZOJ</code>）；</li>
+<li><strong>双击 <code>install.bat</code></strong> —— 自动安装 Node.js（缺失时自动下载）并启动网站；</li>
+<li>浏览器打开 <strong>http://localhost</strong>，用 <strong>admin</strong> + 启动日志里打印的随机初始密码登录。</li>
+</ol>
+<blockquote>
+<p>闪一下就没了 → 右键「以管理员身份运行」；端口 80 被占用 → <code>set PORT=8080 &amp;&amp; install.bat</code>，访问 <code>http://localhost:8080</code>。</p>
+</blockquote>
+<hr />
+<h2 id="四部署完成后先做这三件事">四、部署完成后，先做这三件事<a class="doc-anchor" href="#四部署完成后先做这三件事" aria-label="复制本节链接">#</a></h2>
+<ol>
+<li><strong>改管理员密码</strong>：右上角头像 → 编辑资料 → 修改密码；</li>
+<li><strong>改站点名称 / Logo</strong>：系统设置（<code>#/settings</code>） → 站点信息；</li>
+<li><strong>加题目</strong>：管理后台 → 题目管理 → 新建题目（填标题、题面，再上传测试数据）。</li>
+</ol>
+<hr />
+<h2 id="五日常管理">五、日常管理<a class="doc-anchor" href="#五日常管理" aria-label="复制本节链接">#</a></h2>
+<div class="table-wrap"><table><thead><tr><th style="text-align:left">操作</th><th style="text-align:left">命令</th></tr></thead><tbody>
+<tr><td style="text-align:left">查看服务状态</td><td style="text-align:left"><code>systemctl status lczoj</code></td></tr>
+<tr><td style="text-align:left">查看日志（实时）</td><td style="text-align:left"><code>journalctl -u lczoj -f</code></td></tr>
+<tr><td style="text-align:left">停止服务</td><td style="text-align:left"><code>systemctl stop lczoj</code></td></tr>
+<tr><td style="text-align:left">启动服务</td><td style="text-align:left"><code>systemctl start lczoj</code></td></tr>
+<tr><td style="text-align:left">更新到最新版</td><td style="text-align:left"><code>cd /opt/lczoj &amp;&amp; git pull &amp;&amp; sudo systemctl restart lczoj</code></td></tr>
+<tr><td style="text-align:left">查看外网地址</td><td style="text-align:left">部署脚本会直接输出；或云控制台查看公网 IP</td></tr>
+</tbody></table></div>
+<hr />
+<h2 id="六常见问题faq">六、常见问题（FAQ）<a class="doc-anchor" href="#六常见问题faq" aria-label="复制本节链接">#</a></h2>
+<h3 id="网站打不开">网站打不开？<a class="doc-anchor" href="#网站打不开" aria-label="复制本节链接">#</a></h3>
+<ul>
+<li>确认部署脚本执行成功、没有报错；</li>
+<li>Windows 防火墙拦截时选择「允许访问」；</li>
+<li>云服务器记得在<strong>安全组 / 防火墙</strong>放行 <strong>80 端口</strong>（脚本已尽量自动处理，云厂商安全组需在控制台手动放行）。</li>
+</ul>
+<h3 id="提交代码后一直等待评测-judging">提交代码后一直「等待评测 / Judging」？<a class="doc-anchor" href="#提交代码后一直等待评测-judging" aria-label="复制本节链接">#</a></h3>
+<ul>
+<li>看日志（<code>journalctl -u lczoj -f</code>）有没有报错；</li>
+<li>对应语言未安装时会显示「未安装」，安装对应编译器即可（如 <code>apt install fp-compiler</code>）。</li>
+</ul>
+<h3 id="数据都在哪怎么备份">数据都在哪？怎么备份？<a class="doc-anchor" href="#数据都在哪怎么备份" aria-label="复制本节链接">#</a></h3>
+<p>全部数据在 <code>/opt/lczoj/data</code>（数据库 + 测试数据）。<strong>备份 = 复制整个 <code>data</code> 文件夹</strong>；恢复初始状态 = 删掉 <code>data</code> 后重启服务。</p>
+<h3 id="想让网站走-https-用自己的域名">想让网站走 HTTPS / 用自己的域名？<a class="doc-anchor" href="#想让网站走-https-用自己的域名" aria-label="复制本节链接">#</a></h3>
+<p>见 <a href="deployment.html">DEPLOYMENT.md</a>（Nginx 反向代理 + Let's Encrypt 免费证书）。</p>
+<h3 id="使用-docker-或宝塔-小皮面板部署">使用 Docker 或宝塔 / 小皮面板部署<a class="doc-anchor" href="#使用-docker-或宝塔-小皮面板部署" aria-label="复制本节链接">#</a></h3>
+<ul>
+<li><strong>Docker</strong>：全新服务器执行一行命令（GitHub / Gitee 任选，未安装 Docker 时会自动安装）：</li>
+</ul>
+<pre><code class="lang-bash">  # GitHub 源
+  curl -fsSL https://raw.githubusercontent.com/lichenzhen0713/LCZOJ/master/docker-bootstrap.sh | sudo bash
+
+  # Gitee 源（国内网络环境更快）
+  curl -fsSL https://gitee.com/lichenzhen0713/LCZOJ/raw/master/docker-bootstrap.sh | sudo bash</code></pre>
+<p>  脚本会自动安装 Docker、下载项目、构建镜像并启动服务；项目已在服务器上时执行 <code>node deploy/docker-onekey.js</code>。详见 <a href="docker.html">DOCKER.md</a>；</p>
+<ul>
+<li><strong>宝塔面板 / 小皮面板</strong>：在面板中安装 Node.js v24 → 上传项目 → 执行 <code>node deploy/panel-install.js</code>（准备环境、后台启动服务、生成反向代理配置）→ 在面板中合并 <code>deploy/panel-nginx.conf</code> 并申请证书。详见 <a href="panel.html">PANEL.md</a>。</li>
+</ul>
+<h3 id="升级到新版本">升级到新版本<a class="doc-anchor" href="#升级到新版本" aria-label="复制本节链接">#</a></h3>
+<pre><code class="lang-bash">node deploy/update.js            # 自动备份数据库 → 更新代码 → 重启（数据不受影响）
+node deploy/update.js --docker   # Docker 部署使用此项</code></pre>
+<p>也可在「系统设置（<code>#/settings</code>） → 版本更新」中一键完成。详见 <a href="update.html">UPDATE.md</a>。</p>
+<blockquote>
+<p>部署完成后如不确定环境是否正确，在项目目录执行 <code>node deploy/check-env.js</code>，</p>
+<p>该脚本会输出 Node.js 版本是否满足要求、端口是否被占用、数据目录是否可写、各语言编译器是否就绪。</p>
+</blockquote>
+<hr />
+<h2 id="七想深入了解">七、想深入了解？<a class="doc-anchor" href="#七想深入了解" aria-label="复制本节链接">#</a></h2>
+<ul>
+<li><a href="usage.html">功能使用说明</a> —— 普通用户与管理员功能详解（题目数据配置、子任务计分、ZIP 覆盖/合并、SPJ 等）</li>
+<li><a href="deployment.html">部署详解</a> —— 部署方式对照、反向代理、HTTPS、备份恢复、systemd</li>
+<li><a href="docker.html">Docker 部署</a> —— 一条命令起站、数据卷备份恢复、资源限制、安全提示</li>
+<li><a href="panel.html">面板部署</a> —— 宝塔面板 / 小皮面板逐步操作与排错</li>
+<li><a href="customization.html">自定义指南</a> —— 站点信息、权限、积分系统二开、Special Judge、提交答案题</li>
+<li><a href="languages.html">多语言配置</a> —— 安装 / 新增评测语言</li>
+<li><a href="faq.html">常见问题</a> —— 更多问答</li>
+</ul>
+          </div>
+          <div class="doc-foot">
+            <a href="https://github.com/lichenzhen0713/LCZOJ/blob/master/docs/BEGINNERS.md" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true"><use href="#i-external" /></svg>
+              在 GitHub 编辑此页
+            </a>
+            <span>文档版本 v2.9.1</span>
+          </div>
+          <nav class="doc-pager" aria-label="上一篇 / 下一篇"><a class="pager-prev" href="overview.html"><span><svg class="icon" aria-hidden="true"><use href="#i-arrow-left" /></svg>上一篇</span><strong>项目总览</strong></a><a class="pager-next" href="deployment.html"><span>下一篇<svg class="icon" aria-hidden="true"><use href="#i-arrow-right" /></svg></span><strong>部署指南</strong></a></nav>
+        </article>
+      </div>
+
+      <aside class="docs-toc" aria-label="本页目录">
+  <p class="docs-toc-title">本页目录</p>
+  <nav>
+    <a class="lvl-2" href="#一最快方式一条命令部署到服务器推荐">一、最快方式：一条命令部署到服务器（推荐）</a>
+    <a class="lvl-2" href="#二项目已在服务器上其它方式">二、项目已在服务器上（其它方式）</a>
+    <a class="lvl-2" href="#三windows-部署双击完成">三、Windows 部署（双击完成）</a>
+    <a class="lvl-2" href="#四部署完成后先做这三件事">四、部署完成后，先做这三件事</a>
+    <a class="lvl-2" href="#五日常管理">五、日常管理</a>
+    <a class="lvl-2" href="#六常见问题faq">六、常见问题（FAQ）</a>
+    <a class="lvl-3" href="#网站打不开">网站打不开？</a>
+    <a class="lvl-3" href="#提交代码后一直等待评测-judging">提交代码后一直「等待评测 / Judging」？</a>
+    <a class="lvl-3" href="#数据都在哪怎么备份">数据都在哪？怎么备份？</a>
+    <a class="lvl-3" href="#想让网站走-https-用自己的域名">想让网站走 HTTPS / 用自己的域名？</a>
+    <a class="lvl-3" href="#使用-docker-或宝塔-小皮面板部署">使用 Docker 或宝塔 / 小皮面板部署</a>
+    <a class="lvl-3" href="#升级到新版本">升级到新版本</a>
+    <a class="lvl-2" href="#七想深入了解">七、想深入了解？</a>
+  </nav>
+</aside>
+    </div>
+  </main>
+
+  <footer class="docs-footer">
+  <div class="docs-container docs-footer-inner">
+    <span>© 2026 LCZOJ · MIT License · 文档 v2.9.1</span>
+    <nav aria-label="文档页脚">
+      <a href="../index.html">官网首页</a>
+      <a href="index.html">文档中心</a>
+      <a href="http://127.0.0.1/" data-test-site>测试站</a>
+      <a href="https://github.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://gitee.com/lichenzhen0713/LCZOJ" target="_blank" rel="noopener noreferrer">Gitee</a>
+    </nav>
+  </div>
+</footer>
+  <div class="docs-search-modal" id="docs-search" hidden>
+  <div class="docs-search-backdrop" data-docs-search-close></div>
+  <div class="docs-search-panel" role="dialog" aria-modal="true" aria-labelledby="docs-search-title">
+    <h2 class="sr-only" id="docs-search-title">搜索文档</h2>
+    <div class="docs-search-field">
+      <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+      <input id="docs-search-input" type="search" placeholder="搜索文档：部署、Docker、交互题、更新…" autocomplete="off" spellcheck="false" aria-label="搜索文档" />
+      <button class="docs-search-esc" type="button" data-docs-search-close>Esc</button>
+    </div>
+    <div class="docs-search-results" id="docs-search-results"></div>
+    <p class="docs-search-hint">↑ ↓ 选择 · Enter 打开 · Esc 关闭</p>
+  </div>
+</div>
+    <script src="../js/site-config.js" defer></script>
+  <script src="../js/main.js" defer></script>
+  <script src="../js/docs.js" defer></script>
+</body>
+</html>
